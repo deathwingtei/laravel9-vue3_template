@@ -1,22 +1,14 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{title}}</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                        <button @click="myAlert">Alert</button>
-                    </div>
-                </div>
-            </div>
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-info mb-2">
+        <div class="container">
+            <a href="#" class="navbar-brand">Logo</a>
         </div>
-    </div>
+    </nav>
 </template>
 
 <script>
     export default {
+        name: 'Navbar',
         data() {
             return {
                 title: 'Vue Test'

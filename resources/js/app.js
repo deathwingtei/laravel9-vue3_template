@@ -16,8 +16,11 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
+import Navbar from './components/Navbar.vue';
+import Articles from './components/Articles.vue';
+import Home from './components/Home.vue';
+import User from './components/User.vue';
 app.component('example-component', ExampleComponent);
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -26,14 +29,18 @@ app.component('example-component', ExampleComponent);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// Object.entries(import.meta.globEager('./**/*.vue')).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+app.component('navbar', Navbar);
+app.component('articles', Articles);
+app.component('home', Home);
+app.component('user', User);
 
 /**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-app.mount('#app');
+ app.mount('#app');

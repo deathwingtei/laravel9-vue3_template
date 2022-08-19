@@ -12,7 +12,7 @@
                 </nav>
             </div>
             <div class="col-md-4 ">
-                <button class="btn btn-info float-right"  @click="clearArticle()">Add Article</button>
+                <button class="btn btn-info float-end  mb-5"  @click="clearArticle()">Add Article</button>
             </div>
         </div>
 
@@ -24,33 +24,31 @@
             <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>
         </div>
         <!-- The Modal -->
-        <div class="modal" id="articleModal">
+        <div class="modal" tabindex="-1" id="articleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add / Edit Article</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     <h4 class="modal-title">Add / Edit Article</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <!-- Modal body -->
                 <div class="modal-body">
                     <form @submit.prevent="addArticle" class="mb-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Title" v-model ="article.title">
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Title" v-model ="article.title">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="Description" v-model ="article.body"></textarea>
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Description" v-model ="article.body"></textarea>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-info btn-block">Save</button>
                     </form>
                 </div>
-
-                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
-
                 </div>
             </div>
         </div>
@@ -58,6 +56,7 @@
 </template>
 
 <script>
+    import { Modal } from 'bootstrap'
     export default {
         name: 'Articles',
         data(){
@@ -70,12 +69,14 @@
                 },
                 article_id: '',
                 pagination: {},
-                edit: false
+                edit: false,
+                modal: null
             }
         },
         mounted(){
             console.log('Component mounted.');
             this.fetchArticles('/api/articles');
+            this.modal = new Modal('#articleModal');
         },
         created(){
             console.log('Component created.');
@@ -132,8 +133,9 @@
                         this.article.title = '';
                         this.article.body = '';
                         alert('Article Added');
+                        
+                        this.modal.hide();
                         this.fetchArticles();
-                        $("#articleModal").modal("hide");
                     }).catch(err => {
                         console.log(err);
                     });
@@ -152,8 +154,9 @@
                         this.article.title = '';
                         this.article.body = '';
                         alert('Article Updated');
+                        
+                        this.modal.hide();
                         this.fetchArticles();
-                        $("#articleModal").modal("hide");
                     }).catch(err => {
                         console.log(err);
                     });
@@ -166,7 +169,8 @@
                 this.article_id = article.id;
                 this.article.title = article.title;
                 this.article.body = article.body;
-                $("#articleModal").modal("show");
+                
+               this. modal.show();
             },
             clearArticle(){
                 this.edit = false;
@@ -174,7 +178,8 @@
                 this.article_id = '';
                 this.article.title = '';
                 this.article.body = '';
-                $("#articleModal").modal("show");
+                
+                this.modal.show();
             }
         }
     }

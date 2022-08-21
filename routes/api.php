@@ -42,7 +42,7 @@ Route::get('/user_api/{id}', [App\Http\Controllers\UserController::class, 'show'
 Route::post('/user_api', [App\Http\Controllers\UserController::class, 'store']);
 
 //update User
-Route::put('/user_api', 'UserController@store');
+Route::put('/user_api', [App\Http\Controllers\UserController::class, 'store']);
 
 //delete User
-Route::delete('/user_api/{id}', 'UserController@destroy');
+Route::delete('/user_api/{id}', [App\Http\Controllers\UserController::class, 'destroy']);

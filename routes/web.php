@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    Route::get('/', function () {
+    Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('index');
+    Route::get('/login', function () {
         return view('auth/login');
     });
     Route::get('/admin/article', ['middleware' => 'auth', function() {
@@ -23,6 +24,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'], ['middleware' => 'auth', function() {
     }]);
+
+    Route::get('/linkstorage', function () {
+        Artisan::call('storage:link');
+    });
     
     // Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
     // Route::get('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');

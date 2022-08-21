@@ -17,7 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         //Get articles
-        $articles = Article::orderBy('created_at','desc')->where("withdraw",0)->paginate(5);
+        $articles = Article::orderBy('created_at','desc')->paginate(5);
         return ArticleResource::collection($articles);
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
     }
@@ -103,9 +103,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
-        $articles = Article::find($id);
-        $articles->withdraw = 1;
-        return $articles->save();
-        //return $articles->delete();
+        $articles = Article::find($id)->delete();
+        return $articles;
     }
 }

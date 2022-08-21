@@ -63,6 +63,7 @@
 </template>
 
 <script>
+    import { Modal } from 'bootstrap'
     export default {
         name: 'User',
         data(){
@@ -77,13 +78,15 @@
                 },
                 user_id: '',
                 pagination: {},
-                edit: false
+                edit: false,
+                modal: null
             }
         },
         mounted(){
             console.log('Component mounted.');
             //this.fetchData('/api/users');
-        },
+            this.modal = new Modal('#userModal');
+        }, 
         created(){
             console.log('Component created.');
             this.fetchData('/api/users_api');
@@ -140,7 +143,7 @@
                         this.user.body = '';
                         alert('user Added');
                         this.fetchData();
-                        $("#userModal").modal("hide");
+                        this.modal.hide();
                     }).catch(err => {
                         console.log(err);
                     });
@@ -160,7 +163,7 @@
                         this.user.body = '';
                         alert('user Updated');
                         this.fetchData();
-                        $("#userModal").modal("hide");
+                        this.modal.hide();
                     }).catch(err => {
                         console.log(err);
                     });
@@ -175,7 +178,7 @@
                 this.user.username = user.username;
                 this.user.email = user.email;
                 this.user.permission = user.permission;
-                $("#userModal").modal("show");
+                this.modal.show();
             },
             clearUser(){
                 this.edit = false;
@@ -185,7 +188,7 @@
                 this.user.username = '';
                 this.user.email = '';
                 this.user.permission = '';
-                $("#userModal").modal("show");
+                this.modal.show();
             }
         }
     }

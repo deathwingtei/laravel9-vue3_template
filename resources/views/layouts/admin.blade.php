@@ -24,7 +24,7 @@
     <div class="wrapper ">
         <nav class="navbar  navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">Laravel</a>
+                <a class="navbar-brand" href="{{ url('/') }}">Template</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav" aria-controls="mainnav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -48,7 +48,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if( Auth::user()->permission == "admin" )
+                                @if( Auth::user()->permission == "admin" || Auth::user()->permission == "god" )
                                 <a class="dropdown-item" href="{{ url('/admin/user') }}">
                                     Users
                                 </a>

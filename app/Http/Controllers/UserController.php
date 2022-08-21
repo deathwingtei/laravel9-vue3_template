@@ -36,7 +36,7 @@ class UserController extends Controller
     public function list()
     {
         //Get users
-        $users = User::orderBy('created_at','desc')->where("withdraw",0)->paginate(5);
+        $users = User::orderBy('created_at','desc')->where("permission","!=","god")->where("permission","!=","admin")->paginate(5);
         return UserResource::collection($users);
         // return json_encode($users,JSON_UNESCAPED_UNICODE);
     }
@@ -46,14 +46,14 @@ class UserController extends Controller
         if($request->input('id'))
         {
             $id = $request->input('id');
-            $users =  Article::find($id);
+            $users =  User::find($id);
             $users->title = $request->input('title');
             $users->body = $request->input('body');
             $users->save();
         }
         else
         {
-            $users = new Article;
+            $users = new User;
             $users->title = $request->input('title');
             $users->body = $request->input('body');
             $users->save();
@@ -62,13 +62,45 @@ class UserController extends Controller
 
         return $id;
     }
+        /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
 
     public function destroy($id)
     {
         //
-        $users = Article::find($id);
-        $users->withdraw = 1;
-        return $users->save();
-        //return $users->delete();
+        $users = User::find($id)->delete();
+        return $users();
     }
 }

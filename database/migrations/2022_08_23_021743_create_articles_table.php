@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticleTable extends Migration
+class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,7 @@ class CreateArticleTable extends Migration
             $table->id();
             $table->string("title");
             $table->longText("body")->nullable();
-            $table->boolean('withdraw')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

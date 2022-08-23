@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnSoftdeleteToArticle extends Migration
+class AddColumnPermissionToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddColumnSoftdeleteToArticle extends Migration
      */
     public function up()
     {
-        Schema::table('article', function ($table) {
-            $table->datetime('deleted_at')->nullable()->default(null);
+        Schema::table('users', function ($table) {
+            $table->enum('permission', ['god', 'admin', 'user'])->default('user');
+            $table->softDeletes();
         });
     }
 
@@ -25,7 +26,8 @@ class AddColumnSoftdeleteToArticle extends Migration
      */
     public function down()
     {
-        Schema::table('event', function ($table) {
+        Schema::table('users', function ($table) {
+            $table->dropColumn('permission');
             $table->dropColumn('deleted_at');
         });
     }

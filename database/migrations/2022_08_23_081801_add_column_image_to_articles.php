@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnSoftdeleteToUsers extends Migration
+class AddColumnImageToArticles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnSoftdeleteToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-            $table->datetime('deleted_at')->nullable()->default(null);
+        Schema::table('article', function ($table) {
+            $table->longText('image')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnSoftdeleteToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('event', function ($table) {
-            $table->dropColumn('deleted_at');
+        Schema::table('article', function ($table) {
+            $table->dropColumn('image');
         });
     }
 }

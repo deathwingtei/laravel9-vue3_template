@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+class PageContent extends Model
 {
      use HasFactory;
      use SoftDeletes;
 
      //Table name
-     protected $table = 'article';
+     protected $table = 'page_contents';
      //Primary key
      public $primaryKey = 'id';
      //Time Stamps

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Articles</h2>
+        <h2>Contents</h2>
         <div class="row">
             <div class="col-md-8">
                 <nav aria-label="Page navigation example">
@@ -18,7 +18,7 @@
 
         <div class="card card-body mb-2" v-for="article in articles" v-bind:key="article.id">
             <h3>{{ article.title }}</h3>
-            <p>{{ article.body }}</p>
+            <p v-html="article.body"></p>
             <hr>
             <button @click="editArticle(article)" class="btn btn-warning">Edit</button>
             <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>

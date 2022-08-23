@@ -37,7 +37,7 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link @if(Request::segment(2)=='article') active @endif"
-                                href="{{ url('/admin/article') }}">Article</a>
+                                href="{{ url('/admin/article') }}">Content</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">

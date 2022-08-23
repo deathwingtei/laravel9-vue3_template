@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("title");
             $table->enum('type', ['page', 'favicon', 'site_name', 'company_name', 'tel', 'email'])->default('page');
+            $table->enum('content_size', ['no', 'one', 'many'])->default('no');
             $table->longText('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
@@ -27,60 +28,70 @@ return new class extends Migration
                 [
                     'title' => 'Template',
                     'type' => 'site_name',
+                    'content_size' => 'no',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => '',
                     'type' => 'favicon',
+                    'content_size' => 'no',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'Template Company',
                     'type' => 'company_name',
+                    'content_size' => 'no',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => '0987654321',
                     'type' => 'tel',
+                    'content_size' => 'no',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'templatecompany@templatecompany.com',
                     'type' => 'email',
+                    'content_size' => 'no',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'home',
                     'type' => 'page',
+                    'content_size' => 'one',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'about',
                     'type' => 'page',
+                    'content_size' => 'one',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'services',
                     'type' => 'page',
+                    'content_size' => 'one',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'portfolio',
                     'type' => 'page',
+                    'content_size' => 'many',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
                     'title' => 'contact',
                     'type' => 'page',
+                    'content_size' => 'one',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],

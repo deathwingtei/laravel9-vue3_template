@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Models\PageContent;
 use App\Http\Resources\ArticleResource;
 
 
@@ -17,7 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         //Get articles
-        $articles = Article::orderBy('created_at','desc')->paginate(5);
+        $articles = PageContent::orderBy('created_at','desc')->paginate(5);
         return ArticleResource::collection($articles);
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
     }
@@ -43,14 +43,14 @@ class ArticleController extends Controller
         if($request->input('id'))
         {
             $id = $request->input('id');
-            $articles =  Article::find($id);
+            $articles =  PageContent::find($id);
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
             $articles->save();
         }
         else
         {
-            $articles = new Article;
+            $articles = new PageContent;
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
             $articles->save();
@@ -103,7 +103,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
-        $articles = Article::find($id)->delete();
+        $articles = PageContent::find($id)->delete();
         return $articles;
     }
 }

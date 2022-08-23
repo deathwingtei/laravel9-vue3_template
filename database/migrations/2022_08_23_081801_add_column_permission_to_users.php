@@ -17,6 +17,18 @@ class AddColumnPermissionToUsers extends Migration
             $table->enum('permission', ['god', 'admin', 'user'])->default('user');
             $table->softDeletes();
         });
+
+        DB::table('users')->insert(
+            array(
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => Hash::make('admin123'),
+                'permission' => ('god'),
+                'email_verified_at' => date("Y-m-d H:i:s"),
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            )
+        );
     }
 
     /**
@@ -30,5 +42,12 @@ class AddColumnPermissionToUsers extends Migration
             $table->dropColumn('permission');
             $table->dropColumn('deleted_at');
         });
+    }
+
+    protected function create(array $data)
+    {
+        return User::create([
+     
+        ]);
     }
 }

@@ -5,5 +5,10 @@
 
 #articleModal
 {
-    margin-top:15%;
+    margin-top:10%;
+}
+
+#main_content
+{
+    height: 25vh;
 }

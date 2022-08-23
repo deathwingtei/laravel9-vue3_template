@@ -6,7 +6,7 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -45,4 +45,4 @@ app.component('user', User);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- app.mount('#app');
+ app.use( CKEditor ).mount('#app');

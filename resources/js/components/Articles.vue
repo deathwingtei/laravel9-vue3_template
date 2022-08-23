@@ -25,7 +25,7 @@
         </div>
         <!-- The Modal -->
         <div class="modal" tabindex="-1" id="articleModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                 <div class="modal-header">
                      <h4 class="modal-title">Add / Edit Article</h4>
@@ -35,13 +35,17 @@
                     <form @submit.prevent="addArticle" class="mb-3">
                         <div class="mb-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Title" v-model ="article.title">
+                                <input type="text" class="form-control" placeholder="Title" v-model="article.title">
                             </div>
                         </div>
                         <div class="mb-3">
                             <div class="form-group">
-                                <textarea class="form-control" placeholder="Description" v-model ="article.body"></textarea>
+                                <ckeditor :editor="editor" v-model="article.body" :config="editorConfig"></ckeditor>
+                                <!-- <textarea class="form-control" id="main_content" placeholder="Description" v-model="article.body"></textarea> -->
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="file" >
                         </div>
                         <button type="submit" class="btn btn-info btn-block">Save</button>
                     </form>
@@ -57,6 +61,7 @@
 
 <script>
     import { Modal } from 'bootstrap'
+
     export default {
         name: 'Articles',
         data(){
@@ -65,12 +70,20 @@
                 article: {
                     id: '',
                     title: '',
-                    body: ''
+                    body: '',
+                    image: ''
                 },
                 article_id: '',
                 pagination: {},
                 edit: false,
-                modal: null
+                modal: null,
+                editor: ClassicEditor,
+                editorConfig: {
+                    // The configuration of the editor.
+                    toolbar: {
+                     
+                    }
+                }
             }
         },
         mounted(){
@@ -132,6 +145,7 @@
                     .then(data => {
                         this.article.title = '';
                         this.article.body = '';
+                        this.article.image = '';
                         alert('Article Added');
                         
                         this.modal.hide();
@@ -153,6 +167,7 @@
                     .then(data => {
                         this.article.title = '';
                         this.article.body = '';
+                        this.article.image = '';
                         alert('Article Updated');
                         
                         this.modal.hide();
@@ -169,8 +184,8 @@
                 this.article_id = article.id;
                 this.article.title = article.title;
                 this.article.body = article.body;
-                
-               this. modal.show();
+                this.article.image = article.image;
+                this. modal.show();
             },
             clearArticle(){
                 this.edit = false;
@@ -178,7 +193,8 @@
                 this.article_id = '';
                 this.article.title = '';
                 this.article.body = '';
-                
+                this.article.image = '';
+
                 this.modal.show();
             }
         }

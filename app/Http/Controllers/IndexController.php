@@ -22,20 +22,30 @@ class IndexController extends Controller
         // print_r($content_data);
 
         foreach ($website_setting_data as $key => $value) {
-            if($value->content_size == "no")
+            if($value->type != "page")
             {
                 $sitedata[$value->type]['title'] = $value->title;
                 $sitedata[$value->type]['image'] = $value->image;
             }
+            else
+            {
+                $sitedata[$value->type]['title'][] = $value->title;
+            }
         }
 
         foreach ($content_data as $key => $value) {
-            $page_data[$value->website_setting->title]['title'][] = $value->title;
-            $page_data[$value->website_setting->title]['body'][] = $value->body;
-            $page_data[$value->website_setting->title]['image'][] = $value->image;
+            if(!isset($num[$value->website_setting->title]))
+            {
+                $num[$value->website_setting->title] = 0;
+            }
+            $thisnum = $num[$value->website_setting->title];
+            $page_data[$value->website_setting->title][$thisnum]['title'] = $value->title;
+            $page_data[$value->website_setting->title][$thisnum]['body'] = $value->body;
+            $page_data[$value->website_setting->title][$thisnum]['image'] = $value->image;
+            $page_data[$value->website_setting->title][$thisnum]['parent'] = $value->website_setting->title;
+            $num[$value->website_setting->title]++;
         }
 
-        // print_r($content_data);
         return view('index',compact('page_data','sitedata'));
     }
 }

@@ -12,7 +12,7 @@ class WebsiteSetting extends Model
     use SoftDeletes;
 
     //Table name
-    protected $table = 'website_setting';
+    protected $table = 'website_settings';
     //Primary key
     public $primaryKey = 'id';
     //Time Stamps

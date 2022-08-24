@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class WebsiteSettingResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,9 @@ class ArticleResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'body' => $this->body,
+            'type' => $this->type,
+            'content_size' => $this->content_size,
+            'editable_data' => $this->editable_data,
             'image' => $this->image,
         ];
     }

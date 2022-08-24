@@ -6,6 +6,7 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.10.2",
+        "@types/bootstrap": "^5.2.2",
         "@vitejs/plugin-vue": "^3.0.1",
         "axios": "^0.27",
         "bootstrap": "^5.1.3",
@@ -18,6 +19,7 @@
     },
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^35.0.1",
+        "@ckeditor/ckeditor5-source-editing": "^35.0.1",
         "@ckeditor/ckeditor5-vue": "^4.0.1"
     }
 }

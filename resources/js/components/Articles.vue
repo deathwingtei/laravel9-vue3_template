@@ -20,8 +20,10 @@
             <h3>{{ article.title }}</h3>
             <p v-html="article.body"></p>
             <hr>
-            <button @click="editArticle(article)" class="btn btn-warning">Edit</button>
-            <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>
+            <div class="row">
+                <div class="d-grid gap-2 col-6 mx-auto"><button @click="editArticle(article)" class="btn btn-warning">Edit</button></div>
+                <div class="d-grid gap-2 col-6 mx-auto"><button @click="deleteArticle(article.id)" class="btn btn-danger btn-block">Delete</button></div>
+            </div>
         </div>
         <!-- The Modal -->
         <div class="modal" tabindex="-1" id="articleModal">
@@ -61,6 +63,7 @@
 
 <script>
     import { Modal } from 'bootstrap'
+ 
 
     export default {
         name: 'Articles',
@@ -80,8 +83,20 @@
                 editor: ClassicEditor,
                 editorConfig: {
                     // The configuration of the editor.
+
                     toolbar: {
-                     
+                      items: [
+                            'sourceEditing',
+                            'heading',
+                            '|',
+                            'bold',
+                            'italic',
+                            'link',
+                            '|',
+                            'undo',
+                            'redo',
+         
+                        ]
                     }
                 }
             }

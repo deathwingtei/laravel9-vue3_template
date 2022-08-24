@@ -17,4 +17,8 @@ class PageContent extends Model
      public $primaryKey = 'id';
      //Time Stamps
      public $timestamps = true;
+
+     public function website_setting(){
+          return $this->hasOne(WebsiteSetting::class,'page_id','id');
+      }
 }

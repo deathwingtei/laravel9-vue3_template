@@ -16,8 +16,8 @@ class CreatePageContentsTable extends Migration
         Schema::create('page_contents', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->longText("body")->nullable();
-            $table->longText('image')->nullable();
+            $table->longText("body")->nullable()->default(null);
+            $table->longText('image')->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,28 +31,104 @@ class CreatePageContentsTable extends Migration
             array(
                 [
                     'title' => 'Your Favorite Place for Free Bootstrap Themes',
-                    'body' => '<p class="text-white-75 mb-5">Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!</p><a class="btn btn-primary btn-xl" href="#about">Find Out More</a>',
+                    'body' => 'Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!',
+                    'image' => null,
                     'page_id' => '6',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
-                    'title' => 'We\'ve got what you need!',
-                    'body' => '<p class="text-white-75 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p> <a class="btn btn-light btn-xl" href="#services">Get Started!</a>',
+                    'title' => 'We have got what you need!',
+                    'body' => 'Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!',
+                    'image' => null,
                     'page_id' => '7',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
-                    'title' => 'At Your Service',
-                    'body' => '<div class="row gx-4 gx-lg-5"><div class="col-lg-3 col-md-6 text-center"><div class="mt-5"><div class="mb-2"><i class="bi-gem fs-1 text-primary"></i></div><h3 class="h4 mb-2">Sturdy Themes</h3><p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p></div></div><div class="col-lg-3 col-md-6 text-center"><div class="mt-5"><div class="mb-2"><i class="bi-laptop fs-1 text-primary"></i></div><h3 class="h4 mb-2">Up to Date</h3><p class="text-muted mb-0">All dependencies are kept current to keep things fresh.</p></div></div><div class="col-lg-3 col-md-6 text-center"><div class="mt-5"><div class="mb-2"><i class="bi-globe fs-1 text-primary"></i></div><h3 class="h4 mb-2">Ready to Publish</h3><p class="text-muted mb-0">You can use this design as is, or you can make changes!</p></div></div><div class="col-lg-3 col-md-6 text-center"><div class="mt-5"><div class="mb-2"><i class="bi-heart fs-1 text-primary"></i></div><h3 class="h4 mb-2">Made with Love</h3><p class="text-muted mb-0">Is it really open source if it\'s not made with love?</p></div></div></div>',
+                    'title' => 'Sturdy Themes',
+                    'body' => 'Our themes are updated regularly to keep them bug free!',
+                    'image' => 'img/flaticon_book.png',
                     'page_id' => '8',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
-                    'title' => 'Let\'s Get In Touch!',
+                    'title' => 'Up to Date',
+                    'body' => 'All dependencies are kept current to keep things fresh.',
+                    'image' => 'img/flaticon_computer.png',
+                    'page_id' => '8',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Ready to Publish',
+                    'body' => 'You can use this design as is, or you can make changes!',
+                    'image' => 'img/flaticon_world.png',
+                    'page_id' => '8',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Made with Love',
+                    'body' => 'Is it really open source if it is not made with love?',
+                    'image' => 'img/flaticon_heart.png',
+                    'page_id' => '8',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Item1',
+                    'body' => null,
+                    'image' => 'img/portfolio/fullsize/1.jpg',
+                    'page_id' => '9',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Item2',
+                    'body' => null,
+                    'image' => 'img/portfolio/fullsize/2.jpg',
+                    'page_id' => '9',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Item3',
+                    'body' => null,
+                    'image' => 'img/portfolio/fullsize/3.jpg',
+                    'page_id' => '9',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Item4',
+                    'body' => null,
+                    'image' => 'img/portfolio/fullsize/4.jpg',
+                    'page_id' => '9',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Item5',
+                    'body' => null,
+                    'image' => 'img/portfolio/fullsize/5.jpg',
+                    'page_id' => '9',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Item6',
+                    'body' => null,
+                    'image' => 'img/portfolio/fullsize/6.jpg',
+                    'page_id' => '9',
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'title' => 'Get In Touch!',
                     'body' => 'Ready to start your next project with us? Send us a messages and we will get back to you as soon as possible!',
+                    'image' => null,
                     'page_id' => '10',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")

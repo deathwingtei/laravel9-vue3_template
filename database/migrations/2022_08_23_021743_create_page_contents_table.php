@@ -32,7 +32,7 @@ class CreatePageContentsTable extends Migration
                 [
                     'title' => 'Your Favorite Place for Free Bootstrap Themes',
                     'body' => 'Start Bootstrap can help you build better websites using the Bootstrap framework! Just download a theme and start customizing, no strings attached!',
-                    'image' => null,
+                    'image' => "img/bg-masthead.jpg",
                     'page_id' => '6',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")

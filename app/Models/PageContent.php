@@ -19,6 +19,6 @@ class PageContent extends Model
      public $timestamps = true;
 
      public function website_setting(){
-          return $this->hasOne(WebsiteSetting::class,'page_id','id');
+          return $this->hasOne(WebsiteSetting::class,'id','page_id');
       }
 }

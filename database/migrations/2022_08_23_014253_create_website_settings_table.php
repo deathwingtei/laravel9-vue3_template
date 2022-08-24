@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('type', ['page', 'favicon', 'site_name', 'company_name', 'tel', 'email'])->default('page');
             $table->enum('content_size', ['no', 'one', 'many'])->default('no');
             $table->set('editable_data', ['title', 'body', 'image'])->nullable()->default(null);
-            $table->longText('image')->nullable();
+            $table->longText('image')->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,7 @@ return new class extends Migration
                     'type' => 'site_name',
                     'content_size' => 'no',
                     'editable_data' => null,
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -39,6 +40,7 @@ return new class extends Migration
                     'type' => 'favicon',
                     'content_size' => 'no',
                     'editable_data' => null,
+                    'image' => 'img/template.png',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -47,6 +49,7 @@ return new class extends Migration
                     'type' => 'company_name',
                     'content_size' => 'no',
                     'editable_data' => null,
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -55,6 +58,7 @@ return new class extends Migration
                     'type' => 'tel',
                     'content_size' => 'no',
                     'editable_data' => null,
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -63,6 +67,7 @@ return new class extends Migration
                     'type' => 'email',
                     'content_size' => 'no',
                     'editable_data' => null,
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -71,6 +76,7 @@ return new class extends Migration
                     'type' => 'page',
                     'content_size' => 'one',
                     'editable_data' => 'title,body',
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -79,6 +85,7 @@ return new class extends Migration
                     'type' => 'page',
                     'content_size' => 'one',
                     'editable_data' => 'title,body',
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -87,6 +94,7 @@ return new class extends Migration
                     'type' => 'page',
                     'content_size' => 'many',
                     'editable_data' => 'title,body,image',
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -95,6 +103,7 @@ return new class extends Migration
                     'type' => 'page',
                     'content_size' => 'many',
                     'editable_data' => 'title,image',
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
@@ -103,6 +112,7 @@ return new class extends Migration
                     'type' => 'page',
                     'content_size' => 'one',
                     'editable_data' => 'title,body',
+                    'image' => null,
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s")
                 ],

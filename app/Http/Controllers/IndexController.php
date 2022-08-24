@@ -16,7 +16,8 @@ class IndexController extends Controller
     {
         $content_data = PageContent::orderBy('created_at','asc')->get();
         $website_setting_data = WebsiteSetting::orderBy('id','asc')->get();
-        $sitedata = array();
+        $site_data = array();
+        $page_data = array();
 
         // print_r($content_data);
 
@@ -28,9 +29,13 @@ class IndexController extends Controller
             }
         }
 
-        print_r($sitedata);
+        foreach ($content_data as $key => $value) {
+            $page_data[$value->website_setting->title]['title'][] = $value->title;
+            $page_data[$value->website_setting->title]['body'][] = $value->body;
+            $page_data[$value->website_setting->title]['image'][] = $value->image;
+        }
 
         // print_r($content_data);
-        // return view('index',compact('content_data','website_setting_data'));
+        return view('index',compact('page_data','sitedata'));
     }
 }

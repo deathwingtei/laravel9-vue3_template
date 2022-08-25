@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//article set
 // List Articles
 Route::get('/articles', [App\Http\Controllers\ArticleController::class, 'index']);
 
@@ -32,6 +34,8 @@ Route::put('/article', [App\Http\Controllers\ArticleController::class, 'store'])
 //delete article
 Route::delete('/article/{id}', [App\Http\Controllers\ArticleController::class, 'destroy']);
 
+
+//user set
 // List User
 Route::get('/users_api', [App\Http\Controllers\UserController::class, 'list']);
 
@@ -46,3 +50,6 @@ Route::put('/user_api', [App\Http\Controllers\UserController::class, 'store']);
 
 //delete User
 Route::delete('/user_api/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
+
+//sendmail
+Route::post('/send-email', [App\Http\Controllers\SendEmailController::class, 'index']);

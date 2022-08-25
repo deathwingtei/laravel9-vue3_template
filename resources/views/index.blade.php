@@ -19,7 +19,7 @@
         <!-- @vite(['resources/css/styles.css', 'resources/js/scripts.js']) -->
         <link rel="stylesheet" href="{{ mix('resources/css/styles.css') }}">
         <script src="{{ mix('resources/js/scripts.js') }}" defer></script>
-        <script src="{{ mix('resources/js/mailsender.js') }}" defer></script>
+        <script src="{{ mix('resources/js/addon.js') }}" defer></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -159,6 +159,7 @@
                         <!-- to get an API token!-->
                         <form id="contactForm">
                             <!-- Name input-->
+                            @csrf
                             <div class="form-floating mb-3">
                                 <input class="form-control" id="name" type="text" placeholder="Enter your name..." required/>
                                 <label for="name">Full name</label>

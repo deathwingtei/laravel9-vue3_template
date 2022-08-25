@@ -12,7 +12,7 @@ use App\Mail\NotifyMail;
 class SendEmailController extends Controller
 {
      
-    public function index()
+    public function index(Request $request)
     {
  
         $name = $request->input('name');
@@ -27,12 +27,31 @@ class SendEmailController extends Controller
             'message' => $message
         ];
         
-        Mail::to('p.kittichet@gmail.com')->send(new NotifyMail($mailData));
+        $data = array(
+            "success" => 0,
+            "return" => $request,
+            "msg" => "Sorry! Please try again latter"
+        );
+        print_r(json_encode($data,JSON_UNESCAPED_UNICODE));
+
+        // Mail::to('p.kittichet@gmail.com')->send(new NotifyMail($mailData));
     
-        if (Mail::failures()) {
-            return response()->Fail('Sorry! Please try again latter');
-        }else{
-            return response()->success('Great! Successfully send in your mail');
-        }
+        // if (Mail::failures()) {
+        //     // return response()->Fail('Sorry! Please try again latter');
+        //     $data = array(
+        //         "success" => 0,
+        //         "return" => null,
+        //         "msg" => "Sorry! Please try again latter"
+        //     );
+        //     print_r(json_encode($data, JSON_UNESCAPED_UNICODE));
+        // }else{
+        //     // return response()->success('Great! Successfully send in your mail');
+        //     $data = array(
+        //         "success" => 1,
+        //         "return" => null,
+        //         "msg" => "Great! Successfully send in your mail"
+        //     );
+        //     print_r(json_encode($data,JSON_UNESCAPED_UNICODE));
+        // }
     } 
 }

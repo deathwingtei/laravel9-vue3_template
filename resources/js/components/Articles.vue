@@ -2,16 +2,7 @@
     <div>
         <h2>Contents</h2>
         <div class="row">
-            <div class="col-md-8">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;" @click="fetchArticles(pagination.prev_page_url)">Prev</a></li>
-                        <li class="page-item disabled"><a class="page-link text-dark" >Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
-                        <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;"  @click="fetchArticles(pagination.next_page_url)">Next</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-md-4 ">
+            <div class="col-md-12 ">
                 <button class="btn btn-info float-end  mb-5"  @click="clearArticle()">Add Article</button>
             </div>
         </div>
@@ -25,6 +16,19 @@
                 <div class="d-grid gap-2 col-6 mx-auto"><button @click="deleteArticle(article.id)" class="btn btn-danger btn-block">Delete</button></div>
             </div>
         </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12  ">
+                <nav aria-label="Page navigation" class="text-center">
+                    <ul class="pagination ">
+                        <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;" @click="fetchArticles(pagination.prev_page_url)">Prev</a></li>
+                        <li class="page-item disabled"><a class="page-link text-dark" >Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+                        <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;"  @click="fetchArticles(pagination.next_page_url)">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
         <!-- The Modal -->
         <div class="modal" tabindex="-1" id="articleModal">
             <div class="modal-dialog modal-xl">

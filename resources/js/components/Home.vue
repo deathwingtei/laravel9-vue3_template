@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h2>Home</h2>
-        
+        <h2>Welcome to Laravel 9 With Vue Template (with laravel route)</h2>
+        <h3>Click On Content for edit Content index page</h3>
     </div>
 </template>
 

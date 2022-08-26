@@ -24,7 +24,7 @@
     <div class="wrapper ">
         <nav class="navbar  navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Template</a>
+                <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Template') }}</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav" aria-controls="mainnav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,7 +42,7 @@
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown  ">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}<span class="caret"></span>
                             </a>

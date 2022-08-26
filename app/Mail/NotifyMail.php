@@ -30,11 +30,6 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Devuweb.com')->view('emails.mailtemplate')->with([
-            'name' => $this->mailData->name,
-            'email' => $this->mailData->email,
-            'tel' => $this->mailData->tel,
-            'message' => $this->mailData->message,
-        ]);
+        return $this->subject('Mail from Devuweb.com')->view('emails.mailtemplate');
     }
 }

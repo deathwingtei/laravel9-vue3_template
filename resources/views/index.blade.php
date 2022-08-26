@@ -18,11 +18,16 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <!-- @vite(['resources/css/styles.css', 'resources/js/scripts.js']) -->
         <link rel="stylesheet" href="{{ mix('resources/css/styles.css') }}">
+        <link rel="stylesheet" href="{{ mix('resources/css/dg_main.css') }}">
         <script src="{{ mix('resources/js/scripts.js') }}" defer></script>
         <script src="{{ mix('resources/js/addon.js') }}" defer></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
+        <div id="loader-container">
+            <div id="loader"></div>
+            <p>Wait for sending Email</p>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#page-top">{{ $sitedata['site_name']['title']; }}</a>
@@ -174,9 +179,9 @@
                             </div>
                             <!-- Phone number input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required />
-                                <label for="phone">Phone number</label>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                                <input class="form-control" id="tel" name="tel" type="tel" placeholder="(123) 456-7890" required />
+                                <label for="tel">Phone number</label>
+                                <div class="invalid-feedback" data-sb-feedback="tel:required">A phone number is required.</div>
                             </div>
                             <!-- Message input-->
                             <div class="form-floating mb-3">

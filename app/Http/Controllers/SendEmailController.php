@@ -7,18 +7,24 @@ use Illuminate\Http\Request;
 use Mail;
  
 use App\Mail\NotifyMail;
- 
+use App\Mail\ThankyouMail;
  
 class SendEmailController extends Controller
 {
      
     public function index(Request $request)
     {
- 
         $name = $request->input('name');
         $email = $request->input('email');
         $tel = $request->input('tel');
         $message = $request->input('message');
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'tel' => 'required',
+            'message' => 'required',
+        ]);
         
         $mailData = [
             'name' => $name,
@@ -27,11 +33,6 @@ class SendEmailController extends Controller
             'message' => $message
         ];
         
-        $data = array(
-            "success" => 0,
-            "return" => $name,
-            "msg" => "Sorry! Please try again latter"
-        );
 
         Mail::to('p.kittichet@gmail.com')->send(new NotifyMail($mailData));
     
@@ -39,7 +40,7 @@ class SendEmailController extends Controller
             // return response()->Fail('Sorry! Please try again latter');
             $data = array(
                 "success" => 0,
-                "return" => response(),
+                "return" => "fail",
                 "msg" => "Sorry! Please try again latter"
             );
             print_r(json_encode($data, JSON_UNESCAPED_UNICODE));
@@ -47,9 +48,11 @@ class SendEmailController extends Controller
             // return response()->success('Great! Successfully send in your mail');
             $data = array(
                 "success" => 1,
-                "return" => response(),
+                "return" => "success",
                 "msg" => "Great! Successfully send in your mail"
             );
+            Mail::to($email)->send(new ThankyouMail($mailData));
+
             print_r(json_encode($data,JSON_UNESCAPED_UNICODE));
         }
     } 

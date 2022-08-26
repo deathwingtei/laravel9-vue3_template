@@ -4,12 +4,13 @@ sendmailform.addEventListener('submit', (event) => {
     let formData = new FormData();
     const name = document.querySelector("#name");
     const email = document.querySelector("#email");
-    const phone = document.querySelector("#phone");
+    const tel = document.querySelector("#tel");
     const message = document.querySelector("#message");
     formData.append('name', name);
     formData.append('email', email);
-    formData.append('tel', phone);
+    formData.append('tel', tel);
     formData.append('message', message);
+    document.querySelector("#loader-container").style.display = "block";
     fetch('/api/send-email/',{
         method: "POST",
         body: formdatax,
@@ -18,9 +19,11 @@ sendmailform.addEventListener('submit', (event) => {
         console.log(data)
         alert(data.msg);
     })
-    // .catch(err => {
-    //     console.log(err);
-    // })
-    // return false;
+    .catch(err => {
+        console.log(err);
+    }).finally(function(){
+        document.querySelector("#loader-container").style.display = "none";
+    });
+
     event.preventDefault();
 });

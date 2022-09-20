@@ -40,6 +40,9 @@
                 <div class="modal-body">
                     <form @submit.prevent="addArticle" class="mb-3">
                         <div class="mb-3">
+                            <img :src="article.image" class="img-fluid">
+                        </div>
+                        <div class="mb-3">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Title" v-model="article.title">
                             </div>
@@ -199,9 +202,14 @@
             },
             editArticle(article){
                 this.edit = true;
+                this.clearArticle();
                 this.article.id = article.id;
                 this.article_id = article.id;
                 this.article.title = article.title;
+                if(article.body==null)
+                {
+                    article.body = "";
+                }
                 this.article.body = article.body;
                 this.article.image = article.image;
                 this. modal.show();

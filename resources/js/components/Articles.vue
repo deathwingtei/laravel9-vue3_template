@@ -39,8 +39,8 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="addArticle" class="mb-3">
-                        <div class="mb-3">
-                            <img :src="article.image" class="img-fluid">
+                        <div class="mb-3 text-center">
+                            <img :src="article.image" class="img-fluid set_img_article_admin">
                         </div>
                         <div class="mb-3">
                             <div class="form-group">
@@ -71,7 +71,7 @@
 <script>
     import { Modal } from 'bootstrap'
  
-
+    const appurl = import.meta.env.VITE_APP_URL;
     export default {
         name: 'Articles',
         data(){
@@ -110,6 +110,7 @@
         },
         mounted(){
             console.log('Component mounted.');
+
             this.fetchArticles('/api/articles');
             this.modal = new Modal('#articleModal');
         },
@@ -201,8 +202,10 @@
                 }
             },
             editArticle(article){
-                this.edit = true;
                 this.clearArticle();
+                
+                this.edit = true;
+
                 this.article.id = article.id;
                 this.article_id = article.id;
                 this.article.title = article.title;
@@ -211,7 +214,15 @@
                     article.body = "";
                 }
                 this.article.body = article.body;
-                this.article.image = article.image;
+                if(article.image!=null&&article.image!="")
+                {
+                    this.article.image = appurl+article.image;
+                }
+                else
+                {
+                    this.article.image = "";
+                }
+
                 this. modal.show();
             },
             clearArticle(){

@@ -5,7 +5,7 @@
 
 #articleModal
 {
-    margin-top:10%;
+    /* margin-top:10%; */
 }
 
 #main_content
@@ -52,6 +52,11 @@
     border-top: 16px solid #3498db;
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
+}
+
+.set_img_article_admin
+{
+    max-height: 300px;
 }
   
 @-webkit-keyframes spin {

@@ -16,11 +16,10 @@
         <!-- SimpleLightbox plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <!-- @vite(['resources/css/styles.css', 'resources/js/scripts.js']) -->
-        <link rel="stylesheet" href="{{ mix('resources/css/styles.css') }}">
-        <link rel="stylesheet" href="{{ mix('resources/css/dg_main.css') }}">
-        <script src="{{ mix('resources/js/scripts.js') }}" defer></script>
-        <script src="{{ mix('resources/js/addon.js') }}" defer></script>
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/dg_main.css') }}">
+        <script src="{{ asset('js/scripts.js') }}" defer></script>
+        <script src="{{ asset('js/addon.js') }}" defer></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->

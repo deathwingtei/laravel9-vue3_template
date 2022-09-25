@@ -16,10 +16,7 @@
         <!-- SimpleLightbox plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/dg_main.css') }}">
-        <script src="{{ asset('js/scripts.js') }}" defer></script>
-        <script src="{{ asset('js/addon.js') }}" defer></script>
+        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/scripts.js', 'resources/js/addon.js', 'resources/css/styles.css', 'resources/css/dg_main.css'])
     </head>
     <body id="page-top">
         <!-- Navigation-->

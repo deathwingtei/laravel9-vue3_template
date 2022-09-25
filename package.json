@@ -20,6 +20,6 @@
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^35.1.0",
         "@ckeditor/ckeditor5-source-editing": "^35.1.0",
-        "@ckeditor/ckeditor5-vue": "^4.0.1",
+        "@ckeditor/ckeditor5-vue": "^4.0.1"
     }
 }

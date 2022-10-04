@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <input type="file">
+                                <input type="file" name="article_file" id="article_file">
                             </div>
                             <button type="submit" class="btn btn-info btn-block">Save</button>
                         </form>
@@ -88,7 +88,8 @@ export default {
                 id: '',
                 title: '',
                 body: '',
-                image: ''
+                image: '',
+                file: ''
             },
             article_id: '',
             pagination: {},
@@ -215,6 +216,8 @@ export default {
         },
         editArticle(article) {
             this.edit = true;
+            document.querySelector("#article_file").value = "";
+            this.clearArticle();
             this.article.id = article.id;
             this.article_id = article.id;
             this.article.title = article.title;
@@ -238,7 +241,7 @@ export default {
             this.article.title = '';
             this.article.body = '';
             this.article.image = '';
-
+            document.querySelector("#article_file").value = "";
             this.modal.show();
         }
     },

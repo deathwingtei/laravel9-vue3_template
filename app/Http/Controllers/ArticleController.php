@@ -5,10 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PageContent;
 use App\Http\Resources\ArticleResource;
+use App\Services\ArticleService;
 
 
 class ArticleController extends Controller
 {
+    protected $articleService;
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(ArticleService $articleService)
+    {
+        $this->articleService = $articleService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +30,10 @@ class ArticleController extends Controller
     public function index()
     {
         //Get articles
-        $articles = PageContent::orderBy('created_at','desc')->paginate(15);
-        // $articles = $this->articleService->getallcontent();
-        return ArticleResource::collection($articles);
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
+        $articles = PageContent::orderBy('created_at','desc')->paginate(15);
+        return ArticleResource::collection($articles);
+
     }
 
     /**
@@ -47,6 +60,7 @@ class ArticleController extends Controller
             $articles =  PageContent::find($id);
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
+            $this->articleService->handleUploadedImage($request->file('article_file'));
             $articles->save();
         }
         else
@@ -54,6 +68,7 @@ class ArticleController extends Controller
             $articles = new PageContent;
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
+            $this->articleService->handleUploadedImage($request->file('article_file'));
             $articles->save();
             $id = $articles->id;
         }
@@ -106,14 +121,5 @@ class ArticleController extends Controller
         //
         $articles = PageContent::find($id)->delete();
         return $articles;
-    }
-}
-
-class ArticleService
-{
-    public function getallcontent()
-    {
-        $articles = PageContent::orderBy('created_at','desc')->paginate(15);
-        return $article;
     }
 }

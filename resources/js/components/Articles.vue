@@ -120,13 +120,13 @@ export default {
 
         this.fetchArticles('/api/articles');
         this.modal = new Modal('#articleModal');
-        this.modal.addEventListener('hide.bs.modal', function (event) {
-            this.article.id = '';
-            this.article_id = '';
-            this.article.title = '';
-            this.article.body = '';
-            this.article.image = '';
-        })
+        // this.modal.addEventListener('hide.bs.modal', function (event) {
+        //     this.article.id = '';
+        //     this.article_id = '';
+        //     this.article.title = '';
+        //     this.article.body = '';
+        //     this.article.image = '';
+        // })
     },
     created() {
         console.log('Component created.');

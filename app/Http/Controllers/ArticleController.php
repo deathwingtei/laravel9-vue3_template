@@ -18,6 +18,7 @@ class ArticleController extends Controller
     {
         //Get articles
         $articles = PageContent::orderBy('created_at','desc')->paginate(15);
+        // $articles = $this->articleService->getallcontent();
         return ArticleResource::collection($articles);
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
     }
@@ -105,5 +106,14 @@ class ArticleController extends Controller
         //
         $articles = PageContent::find($id)->delete();
         return $articles;
+    }
+}
+
+class ArticleService
+{
+    public function getallcontent()
+    {
+        $articles = PageContent::orderBy('created_at','desc')->paginate(15);
+        return $article;
     }
 }

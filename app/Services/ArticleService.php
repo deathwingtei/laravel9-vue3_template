@@ -2,13 +2,16 @@
 
     namespace App\Services;
 
+    use Illuminate\Support\Facades\Storage;
+
     class ArticleService
     {
-        public function handleUploadedImage($image): void
+        public function handleUploadedImage($image,$img_name): void
         {
             if (!is_null($image)) {
-                $name = time() . $image->getClientOriginalName();
-                $image->move(public_path() . '/images/' , $name);
+                
+                // $image->move(public_path() . '/images/' , $name);
+                $image->storeAs('public/images/', $img_name);
             }
         }
     }

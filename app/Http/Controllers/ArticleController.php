@@ -60,7 +60,10 @@ class ArticleController extends Controller
             $articles =  PageContent::find($id);
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
-            $this->articleService->handleUploadedImage($request->file('article_file'));
+            if (!is_null($request->file('file'))) {
+                $img_name = time() . $request->file('file')->getClientOriginalName();
+                $this->articleService->handleUploadedImage($request->file('file'),$img_name);
+            }
             $articles->save();
         }
         else
@@ -68,7 +71,10 @@ class ArticleController extends Controller
             $articles = new PageContent;
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
-            $this->articleService->handleUploadedImage($request->file('article_file'));
+            if (!is_null($request->file('file'))) {
+                $img_name = time() . $request->file('file')->getClientOriginalName();
+                $this->articleService->handleUploadedImage($request->file('file'),$img_name);
+            }
             $articles->save();
             $id = $articles->id;
         }

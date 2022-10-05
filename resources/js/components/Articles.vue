@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <input type="file" name="article_file" id="article_file">
+                                <input type="file" name="article_file" id="article_file"  @change="handleFileUpload( $event )">
                             </div>
                             <button type="submit" class="btn btn-info btn-block">Save</button>
                         </form>
@@ -134,6 +134,9 @@ export default {
         //this.fetchArticles('/api/articles');
     },
     methods: {
+        handleFileUpload( event ){
+            this.article.file = event.target.files[0];
+        },
         fetchArticles(page_url) {
             let vm = this;
             page_url = page_url || '/api/articles'
@@ -170,14 +173,16 @@ export default {
             }
         },
         addArticle() {
+            let formdata = new FormData();
+            formdata.append('id', this.article.id);
+            formdata.append('title', this.article.title);
+            formdata.append('body', this.article.body);
+            formdata.append('file', this.article.file);
             if (this.edit === false) {
                 //Add
                 fetch('/api/article/', {
                     method: 'post',
-                    body: JSON.stringify(this.article),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
+                    body: formdata,
                 }).then(res => res.json())
                     .then(data => {
                         this.article.title = '';
@@ -195,10 +200,7 @@ export default {
                 //update
                 fetch('/api/article/', {
                     method: 'put',
-                    body: JSON.stringify(this.article),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
+                    body: formdata,
                 }).then(res => res.json())
                     .then(data => {
                         this.article.title = '';

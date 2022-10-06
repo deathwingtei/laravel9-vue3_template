@@ -62,6 +62,14 @@ class UserController extends Controller
 
         return $id;
     }
+
+    public function permission()
+    {
+        $permission = Auth::user()->permission;;
+        $data['permission'] = $permission;
+        return json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
+    
         /**
      * Display the specified resource.
      *

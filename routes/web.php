@@ -33,6 +33,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('/linkstorage', function () {
         Artisan::call('storage:link');
     });
+
+    Route::get('/current_permission', [App\Http\Controllers\UserController::class, 'permission'], ['middleware' => 'auth', function() {
+    }]);
     
     //POST Route
     Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']);

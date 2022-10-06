@@ -35,26 +35,30 @@
                   <!-- Modal body -->
                   <div class="modal-body">
                       <form @submit.prevent="adduser" class="mb-3">
-							<div class="mb-3">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Name" v-model ="user.name">
-								</div>
-							</div>
-							<div class="mb-3">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Username" v-model ="user.username">
-								</div>
-							</div>
-							<div class="mb-3">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Email" v-model ="user.email">
-								</div>
-							</div>
-							<div class="mb-3" >
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Permission" v-model ="user.permission">
-								</div>
-							</div>
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Name" v-model ="user.name">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Username" v-model ="user.username">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Email" v-model ="user.email">
+                          </div>
+                        </div>
+                        <div class="mb-3" >
+                          <div class="form-group">
+                            <select class="form-control" placeholder="Permission"  v-model="selected">
+                              <option v-for="option in options" :key="option.value" :value="option.value">
+                                {{ option.value }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
                           <button type="submit" class="btn btn-info btn-block">Save</button>
                       </form>
                   </div>
@@ -85,11 +89,17 @@ export default {
         email: "",
         permission: "",
       },
+      selected: 'user',
+      options: [
+        { value: 'user' },
+        { value: 'admin' },
+        { value: 'god' }
+      ],
       user_id: "",
       pagination: {},
       edit: false,
       modal: null,
-	  permission:null
+	    permission:null
     };
   },
   mounted() {
@@ -100,6 +110,7 @@ export default {
   created() {
     console.log("Component created.");
     this.fetchData("/api/users_api");
+    this.getPermission();
   },
   methods: {
     fetchData(page_url) {
@@ -115,8 +126,20 @@ export default {
           console.log(err);
         });
     },
-	getPermission() {
-
+	  getPermission() {
+      fetch("/current_permission", {
+          method: "get",
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          this.permission = res.permission;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     makePagination(meta, links) {
       let pagination = {

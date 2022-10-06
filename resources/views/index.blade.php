@@ -26,9 +26,10 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">{{ $sitedata['site_name']['title']; }}</a>
+                <a class="navbar-brand" href="#page-top">{!! $sitedata['site_name']['title']; !!}</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
+                    
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
                         @foreach ($sitedata['page']['title'] as $page)
                         @if($page!="home")
@@ -53,7 +54,7 @@
                                     @endif
                                     <a class="dropdown-item" href="{{ route('home') }}">Home</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -73,11 +74,12 @@
             <div class="container px-4 px-lg-5 h-100">
                 <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-8 align-self-end">
-                        <h1 class="text-white font-weight-bold">{{ $page_data['home'][0]['title']; }}</h1>
+                        <h1 class="text-white font-weight-bold">{!! $page_data['home'][0]['title']; !!}</h1>
                         <hr class="divider" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 mb-5">{{ $page_data['home'][0]['body']; }}</p>
+                    <!-- <img class="img-fluid" src="{{ asset('storage/images/article_5458_1665024764.jpg') }}" alt=""> -->
+                        <p class="text-white-75 mb-5">{!! $page_data['home'][0]['body']; !!}</p>
                         <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
                     </div>
                 </div>
@@ -88,9 +90,9 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">{{ $page_data['about'][0]['title']; }}</h2>
+                        <h2 class="text-white mt-0">{!! $page_data['about'][0]['title']; !!}</h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">{{ $page_data['about'][0]['body']; }}</p>
+                        <p class="text-white-75 mb-4">{!! $page_data['about'][0]['body']; !!}</p>
                         <a class="btn btn-light btn-xl" href="#services">Get Started!</a>
                     </div>
                 </div>
@@ -99,15 +101,15 @@
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container px-4 px-lg-5">
-                <h2 class="text-center mt-0">{{ ucfirst($page_data['services'][0]['parent']); }}</h2>
+                <h2 class="text-center mt-0">{!! ucfirst($page_data['services'][0]['parent']); !!}</h2>
                 <hr class="divider" />
                 <div class="row gx-4 gx-lg-5">
                     @foreach($page_data['services'] as $service)
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><img src="{{ asset($service['image']) }}" class="img-fluid mb-4" style="max-width:50px;"></div>
-                            <h3 class="h4 mb-2">{{ $service['title']; }}</h3>
-                            <p class="text-muted mb-0">{{ $service['body']; }}</p>
+                            <h3 class="h4 mb-2">{!! $service['title']; !!}</h3>
+                            <p class="text-muted mb-0">{!! $service['body']; !!}</p>
                         </div>
                     </div>
                     @endforeach
@@ -120,11 +122,11 @@
                 <div class="row g-0">
                     @foreach($page_data['portfolio'] as $portfolio)
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="{{ asset($portfolio['image']) }}" title="{{ $portfolio['title']; }}">
-                            <img class="img-fluid" src="{{ asset($portfolio['image']) }}" alt="{{ $portfolio['title']; }}" />
+                        <a class="portfolio-box" href="{{ asset($portfolio['image']) }}" title="{{ strip_tags($portfolio['title']); }}">
+                            <img class="img-fluid" src="{{ asset($portfolio['image']) }}" alt="{{ strip_tags($portfolio['title']); }}" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">{{ ucfirst($portfolio['parent']); }}</div>
-                                <div class="project-name">{{ $portfolio['title']; }}</div>
+                                <div class="project-name">{!! $portfolio['title']; !!}</div>
                             </div>
                         </a>
                     </div>
@@ -144,9 +146,9 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6 text-center">
-                        <h2 class="mt-0">{{ $page_data['contact'][0]['title'] }}</h2>
+                        <h2 class="mt-0">{!! $page_data['contact'][0]['title'] !!}</h2>
                         <hr class="divider" />
-                        <p class="text-muted mb-5">{{ $page_data['contact'][0]['body'] }}</p>
+                        <p class="text-muted mb-5">{!! $page_data['contact'][0]['body'] !!}</p>
                     </div>
                 </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center mb-5">

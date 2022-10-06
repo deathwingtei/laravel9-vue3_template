@@ -61,8 +61,11 @@ class ArticleController extends Controller
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
             if (!is_null($request->file('file'))) {
-                $img_name = time() . $request->file('file')->getClientOriginalName();
+                $ext = $request->file('file')->getClientOriginalExtension();
+                $img_name = "article_".rand(0,10000)."_".time().".".$ext;
                 $this->articleService->handleUploadedImage($request->file('file'),$img_name);
+                $storageimg_path = "storage/images/".$img_name;
+                $articles->image = $storageimg_path;
             }
             $articles->save();
         }
@@ -72,8 +75,11 @@ class ArticleController extends Controller
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
             if (!is_null($request->file('file'))) {
-                $img_name = time() . $request->file('file')->getClientOriginalName();
+                $ext = $request->file('file')->getClientOriginalExtension();
+                $img_name = "article_".rand(0,10000)."_".time().".".$ext;
                 $this->articleService->handleUploadedImage($request->file('file'),$img_name);
+                $storageimg_path = "storage/images/".$img_name;
+                $articles->image = $storageimg_path;
             }
             $articles->save();
             $id = $articles->id;

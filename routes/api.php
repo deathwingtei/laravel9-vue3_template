@@ -45,10 +45,6 @@ Route::get('/user_api/{id}', [App\Http\Controllers\UserController::class, 'show'
 //create new User
 Route::post('/user_api', [App\Http\Controllers\UserController::class, 'store']);
 
-//current permission
-Route::get('/current_permission', [App\Http\Controllers\UserController::class, 'permission'], ['middleware' => 'auth', function() {
-}]);
-
 //update User
 Route::put('/user_api', [App\Http\Controllers\UserController::class, 'store']);
 

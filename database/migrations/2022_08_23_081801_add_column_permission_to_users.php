@@ -21,10 +21,28 @@ class AddColumnPermissionToUsers extends Migration
 
         DB::table('users')->insert(
             array(
+                'name' => 'god',
+                'email' => 'god@god.com',
+                'password' => Hash::make('god123'),
+                'permission' => ('god'),
+                'email_verified_at' => date("Y-m-d H:i:s"),
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ),
+            array(
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('admin123'),
-                'permission' => ('god'),
+                'permission' => ('admin'),
+                'email_verified_at' => date("Y-m-d H:i:s"),
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s")
+            ),
+            array(
+                'name' => 'user',
+                'email' => 'user@user.com',
+                'password' => Hash::make('user123'),
+                'permission' => ('user'),
                 'email_verified_at' => date("Y-m-d H:i:s"),
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")

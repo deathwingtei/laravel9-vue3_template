@@ -30,7 +30,14 @@ class UserController extends Controller
         $this->middleware('auth');
         $helper = new Helper;
         $datashow = $helper->callbacktest();
-        return view('user')->with("showdata",$datashow);
+        if(Auth::user()->permission!="user")
+        {
+            return view('user')->with("showdata",$datashow);
+        }
+        else
+        {
+            return redirect('/');
+        }
     }
 
     public function list()
@@ -65,7 +72,7 @@ class UserController extends Controller
 
     public function permission()
     {
-        $permission = Auth::user()->permission;;
+        $permission = Auth::user()->permission;
         $data['permission'] = $permission;
         return json_encode($data,JSON_UNESCAPED_UNICODE);
     }
@@ -108,7 +115,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        $users = User::find($id)->delete();
-        return $users();
+        if(Auth::user()->permission!="user")
+        {
+            $users = User::find($id)->delete();
+            return $users();
+        }
+        else
+        {
+            return redirect('/');
+        }
     }
 }

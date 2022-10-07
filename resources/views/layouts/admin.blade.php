@@ -35,10 +35,12 @@
                             <a class="nav-link @if(Request::segment(1)=='home') active @endif"
                                 href="{{ url('/home') }}">Home</a>
                         </li>
+                        @if( Auth::user()->permission == "admin" || Auth::user()->permission == "god" )
                         <li class="nav-item ">
                             <a class="nav-link @if(Request::segment(2)=='article') active @endif"
                                 href="{{ url('/admin/article') }}">Content</a>
                         </li>
+                        @endif
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->

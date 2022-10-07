@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2>User</h2>
-      <div class="row">
+      <div class="row mb-2">
           <div class="col-md-8">
               <nav aria-label="Page navigation example">
                   <ul class="pagination">
@@ -50,10 +50,10 @@
                             <input type="text" class="form-control" placeholder="Email" v-model ="user.email">
                           </div>
                         </div>
-                        <div class="mb-3" >
+                        <div class="mb-3"  v-if="permission_show">
                           <div class="form-group">
                             <select class="form-control" placeholder="Permission"  v-model="selected">
-                              <option v-for="option in options" :key="option.value" :value="option.value">
+                              <option v-for="option in permission_options" :key="option.value" :value="option.value">
                                 {{ option.value }}
                               </option>
                             </select>
@@ -90,7 +90,7 @@ export default {
         permission: "",
       },
       selected: 'user',
-      options: [
+      permission_options: [
         { value: 'user' },
         { value: 'admin' },
         { value: 'god' }
@@ -99,7 +99,8 @@ export default {
       pagination: {},
       edit: false,
       modal: null,
-	    permission:null
+	    permission:null,
+      permission_show:true
     };
   },
   mounted() {
@@ -122,9 +123,7 @@ export default {
           this.users = res.data;
           vm.makePagination(res.meta, res.links);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+ 
     },
 	  getPermission() {
       fetch("/current_permission", {
@@ -136,6 +135,27 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           this.permission = res.permission;
+          if(this.permission=="god")
+          {
+            this.permission_show = true;
+            this.permission_options = [
+              { value: 'user' },
+              { value: 'admin' }
+            ]
+          }
+          else if(this.permission=="admin")
+          {
+            this.permission_show = true;
+            this.permission_options = [
+              { value: 'user' }
+            ]
+          }
+          else
+          {
+            this.permission_show = false;
+          }
+          console.log(this.permission_show);
+          console.log(this.permission_options);
         })
         .catch((err) => {
           console.log(err);

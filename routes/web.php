@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
     Route::get('/login', function () {
         return view('auth/login');
     });
-    Route::get('/admin/article', ['middleware' => 'auth', function() {
+    Route::get('/admin/article', ['middleware' => ['role:admin','role:god'], function() {
         return view('article');
     }]);
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'], ['middleware' => 'auth', function() {
+    Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'], ['middleware' => ['role:admin','role:god'], function() {
     }]);
     
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');

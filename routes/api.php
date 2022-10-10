@@ -51,5 +51,10 @@ Route::put('/user_api', [App\Http\Controllers\UserController::class, 'store']);
 //delete User
 Route::delete('/user_api/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
 
+//api login
+//https://dev.to/shanisingh03/laravel-api-authentication-using-laravel-sanctum-edg
+Route::post('/auth/register', [AuthController::class, 'createUser']);
+Route::post('/auth/login', [AuthController::class, 'loginUser']);
+
 //sendmail
 Route::post('/send-email', [App\Http\Controllers\SendEmailController::class, 'index']);

@@ -58,4 +58,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function authenticate(Request $request)
+    {
+      $user = User::where('email', $request->email)->first();
+      $user->createToken("API TOKEN")->plainTextToken;
+    }
+
 }

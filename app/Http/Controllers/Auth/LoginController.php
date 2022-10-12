@@ -36,7 +36,7 @@ class LoginController extends Controller
         $role = Auth::user()->permission; 
 
         $tokenobj = Auth::user()->createToken('api_token');
-        $token = $tokenobj->accessToken;
+        $token = $tokenobj->plainTextToken;
 
         switch ($role) {
           case 'admin':
@@ -60,12 +60,6 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-
-    public function authenticate(Request $request)
-    {
-      $user = User::where('email', $request->email)->first();
-      $user->createToken("API TOKEN")->accessToken;
     }
 
 }

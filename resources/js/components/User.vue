@@ -105,18 +105,18 @@ export default {
   },
   mounted() {
     console.log("Component mounted.");
-    //this.fetchData('/api/users');
+    //this.fetchData('/data/users');
     this.modal = new Modal("#userModal");
   },
   created() {
     console.log("Component created.");
-    this.fetchData("/api/users_api");
+    this.fetchData("/data/users_api");
     this.getPermission();
   },
   methods: {
     fetchData(page_url) {
       let vm = this;
-      page_url = page_url || "/api/users_api";
+      page_url = page_url || "/data/users_api";
       fetch(page_url)
         .then((res) => res.json())
         .then((res) => {
@@ -173,7 +173,7 @@ export default {
     },
     deleteUser(id) {
       if (confirm("Are you sure?")) {
-        fetch("/api/user_api/" + id, {
+        fetch("/data/user_api/" + id, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -189,7 +189,7 @@ export default {
     addUser() {
       if (this.edit === false) {
         //Add
-        fetch("/api/user_api/", {
+        fetch("/data/user_api/", {
           method: "post",
           body: JSON.stringify(this.user),
           headers: {
@@ -209,7 +209,7 @@ export default {
           });
       } else {
         //update
-        fetch("/api/user_api/", {
+        fetch("/data/user_api/", {
           method: "put",
           body: JSON.stringify(this.user),
           headers: {

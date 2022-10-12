@@ -119,7 +119,7 @@ export default {
     mounted() {
         console.log('Component mounted.');
 
-        this.fetchArticles('/data/articles');
+        this.fetchArticles('/local/articles');
         this.modal = new Modal('#articleModal');
         // this.modal.addEventListener('hide.bs.modal', function (event) {
         //     this.article.id = '';
@@ -131,7 +131,7 @@ export default {
     },
     created() {
         console.log('Component created.');
-        //this.fetchArticles('/data/articles');
+        //this.fetchArticles('/local/articles');
     },
     methods: {
         handleFileUpload( event ){
@@ -139,7 +139,7 @@ export default {
         },
         fetchArticles(page_url) {
             let vm = this;
-            page_url = page_url || '/data/articles'
+            page_url = page_url || '/local/articles'
             fetch(page_url)
                 .then(res => res.json())
                 .then(res => {
@@ -161,7 +161,7 @@ export default {
         },
         deleteArticle(id) {
             if (confirm('Are you sure?')) {
-                fetch('/data/article/' + id, {
+                fetch('/local/article/' + id, {
                     method: 'DELETE'
                 }).then(res => res.json())
                     .then(data => {
@@ -180,7 +180,7 @@ export default {
             formdata.append('file', this.article.file);
             if (this.edit === false) {
                 //Add
-                fetch('/data/article/', {
+                fetch('/local/article/', {
                     method: 'post',
                     body: formdata,
                 }).then(res => res.json())
@@ -198,7 +198,7 @@ export default {
             }
             else {
                 //update
-                fetch('/data/article/', {
+                fetch('/local/article/', {
                     method: 'put',
                     body: formdata,
                 }).then(res => res.json())

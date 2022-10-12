@@ -15,11 +15,11 @@
         },
         mounted(){
             console.log('Component mounted.');
-            //this.fetchArticles('/data/articles');
+            //this.fetchArticles('/local/articles');
         },
         created(){
             console.log('Component created.');
-            //this.fetchArticles('/data/articles');
+            //this.fetchArticles('/local/articles');
         },
         methods: {
             

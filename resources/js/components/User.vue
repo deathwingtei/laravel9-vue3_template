@@ -2,17 +2,8 @@
   <div>
       <h2>User</h2>
       <div class="row mb-2">
-          <div class="col-md-8">
-              <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                      <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;" @click="fetchData(pagination.prev_page_url)">Prev</a></li>
-                      <li class="page-item disabled"><a class="page-link text-dark" >Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
-                      <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;"  @click="fetchData(pagination.next_page_url)">Next</a></li>
-                  </ul>
-              </nav>
-          </div>
-          <div class="col-md-4 ">
-              <button class="btn btn-info float-right" @click="clearUser()">Add user</button>
+          <div class="col-md-12 ">
+              <button class="btn btn-info float-end" @click="clearUser()">Add user</button>
           </div>
       </div>
       <div class="card card-body mb-2" v-for="user in users" v-bind:key="user.id">
@@ -42,12 +33,17 @@
                         </div>
                         <div class="mb-3">
                           <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Username" v-model ="user.username">
+                            <input type="text" class="form-control" placeholder="Email" v-model ="user.email">
                           </div>
                         </div>
                         <div class="mb-3">
                           <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Email" v-model ="user.email">
+                            <input type="text" class="form-control" placeholder="Password">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Confirm Password">
                           </div>
                         </div>
                         <div class="mb-3"  v-if="permission_show">
@@ -70,6 +66,17 @@
               </div>
           </div>
       </div>
+      <div class="row mt-3">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;" @click="fetchData(pagination.prev_page_url)">Prev</a></li>
+                    <li class="page-item disabled"><a class="page-link text-dark" >Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+                    <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" style="cursor:pointer;color:blue;"  @click="fetchData(pagination.next_page_url)">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -85,73 +92,63 @@ export default {
       user: {
         id: "",
         name: "",
-        username: "",
         email: "",
+        password: "",
+        confirm_password: "",
         permission: "",
       },
-      selected: 'user',
+      selected: "user",
       permission_options: [
-        { value: 'user' },
-        { value: 'admin' },
-        { value: 'god' }
+        { value: "user" },
+        { value: "admin" },
+        { value: "god" },
       ],
       user_id: "",
       pagination: {},
       edit: false,
       modal: null,
-	    permission:null,
-      permission_show:true
+      permission: null,
+      permission_show: true,
     };
   },
   mounted() {
     console.log("Component mounted.");
-    //this.fetchData('/data/users');
+    //this.fetchData('/local/users');
     this.modal = new Modal("#userModal");
   },
   created() {
     console.log("Component created.");
-    this.fetchData("/data/users_api");
+    this.fetchData("/local/users_api");
     this.getPermission();
   },
   methods: {
     fetchData(page_url) {
       let vm = this;
-      page_url = page_url || "/data/users_api";
+      page_url = page_url || "/local/users_api";
       fetch(page_url)
         .then((res) => res.json())
         .then((res) => {
           this.users = res.data;
           vm.makePagination(res.meta, res.links);
-        })
- 
+        });
     },
-	  getPermission() {
+    getPermission() {
       fetch("/current_permission", {
-          method: "get",
-          headers: {
-            "content-type": "application/json",
-          },
-        })
+        method: "get",
+        headers: {
+          "content-type": "application/json",
+        },
+      })
         .then((res) => res.json())
         .then((res) => {
           this.permission = res.permission;
-          if(this.permission=="god")
-          {
+          if (this.permission == "god") {
             this.permission_show = true;
-            this.permission_options = [
-              { value: 'user' },
-              { value: 'admin' }
-            ]
-          }
-          else if(this.permission=="admin")
-          {
+            this.permission_options = [{ value: "user" }, { value: "admin" }];
+          } else if (this.permission == "admin") {
             this.permission_show = true;
-            this.permission_options = [
-              { value: 'user' }
-            ]
-          }
-          else
-          {
+            this.permission_options = [{ value: "user" }];
+          } else {
             this.permission_show = false;
           }
           console.log(this.permission_show);
@@ -173,7 +170,7 @@ export default {
     },
     deleteUser(id) {
       if (confirm("Are you sure?")) {
-        fetch("/data/user_api/" + id, {
+        fetch("/local/user_api/" + id, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -189,7 +186,7 @@ export default {
     addUser() {
       if (this.edit === false) {
         //Add
-        fetch("/data/user_api/", {
+        fetch("/local/user_api/", {
           method: "post",
           body: JSON.stringify(this.user),
           headers: {
@@ -209,7 +206,7 @@ export default {
           });
       } else {
         //update
-        fetch("/data/user_api/", {
+        fetch("/local/user_api/", {
           method: "put",
           body: JSON.stringify(this.user),
           headers: {
@@ -235,7 +232,6 @@ export default {
       this.user.id = user.id;
       this.user_id = user.id;
       this.user.name = user.name;
-      this.user.username = user.username;
       this.user.email = user.email;
       this.user.permission = user.permission;
       this.modal.show();
@@ -245,7 +241,6 @@ export default {
       this.user.id = "";
       this.user_id = "";
       this.user.name = "";
-      this.user.username = "";
       this.user.email = "";
       this.user.permission = "";
       this.modal.show();

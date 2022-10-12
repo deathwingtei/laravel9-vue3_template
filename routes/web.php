@@ -17,27 +17,28 @@ use Illuminate\Support\Facades\Route;
         Route::get('/admin/article', function () { return view('article');  });
         Route::get('/admin/user', function () { return view('user');  });
 
+        //API From Local
         // List Articles
-        Route::get('/data/articles', [App\Http\Controllers\ArticleController::class, 'index']);
+        Route::get('/local/articles', [App\Http\Controllers\ArticleController::class, 'index']);
         // single Article
-        Route::get('/data/article/{id}', [App\Http\Controllers\ArticleController::class, 'show']);
+        Route::get('/local/article/{id}', [App\Http\Controllers\ArticleController::class, 'show']);
         //create new article
-        Route::post('/data/article', [App\Http\Controllers\ArticleController::class, 'store']);
+        Route::post('/local/article', [App\Http\Controllers\ArticleController::class, 'store']);
         //update article
-        Route::put('/data/article', [App\Http\Controllers\ArticleController::class, 'store']);
+        Route::put('/local/article', [App\Http\Controllers\ArticleController::class, 'store']);
         //delete article
-        Route::delete('/data/article/{id}', [App\Http\Controllers\ArticleController::class, 'destroy']);
+        Route::delete('/local/article/{id}', [App\Http\Controllers\ArticleController::class, 'destroy']);
         //user set
         // List User
-        Route::get('/data/users_api', [App\Http\Controllers\UserController::class, 'list']);
+        Route::get('/local/users_api', [App\Http\Controllers\UserController::class, 'list']);
         //single Users
-        Route::get('/data/user_api/{id}', [App\Http\Controllers\UserController::class, 'show']);
+        Route::get('/local/user_api/{id}', [App\Http\Controllers\UserController::class, 'show']);
         //create new User
-        Route::post('/data/user_api', [App\Http\Controllers\UserController::class, 'store']);
+        Route::post('/local/user_api', [App\Http\Controllers\UserController::class, 'store']);
         //update User
-        Route::put('/data/user_api', [App\Http\Controllers\UserController::class, 'store']);
+        Route::put('/local/user_api', [App\Http\Controllers\UserController::class, 'store']);
         //delete User
-        Route::delete('/data/user_api/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
+        Route::delete('/local/user_api/{id}', [App\Http\Controllers\UserController::class, 'destroy']);
         //api login
     });
 

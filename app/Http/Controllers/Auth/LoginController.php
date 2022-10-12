@@ -34,6 +34,10 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     public function redirectTo() {
         $role = Auth::user()->permission; 
+
+        $tokenobj = Auth::user()->createToken('api_token');
+        $token = $tokenobj->accessToken;
+
         switch ($role) {
           case 'admin':
             return '/home';
@@ -61,7 +65,7 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
       $user = User::where('email', $request->email)->first();
-      $user->createToken("API TOKEN")->plainTextToken;
+      $user->createToken("API TOKEN")->accessToken;
     }
 
 }

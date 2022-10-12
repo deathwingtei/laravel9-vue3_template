@@ -17,14 +17,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('/login', function () {
         return view('auth/login');
     });
-    Route::get('/admin/article', ['middleware' => ['role:admin','role:god'], function() {
-        return view('article');
+    Route::get('/admin/article', [App\Http\Controllers\ArticleController::class, 'page'], ['middleware' => ['role:admin','role:god'], function() {
     }]);
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'], ['middleware' => ['role:admin','role:god'], function() {
     }]);
-    
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
     Route::get('/password/confirm', [App\Http\Controllers\Auth\ConfirmPasswordController::class,'showConfirmForm'])->name('password.confirm');
     Route::get('/password/reset', [App\Http\Controllers\Auth\ForgotPasswordController::class,'showLinkRequestForm'])->name('password.request');

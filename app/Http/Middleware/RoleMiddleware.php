@@ -21,8 +21,17 @@ class RoleMiddleware
           return redirect('/');
     
         $user = Auth::user();
-        if($user->permission == $role)
+        if(is_array($role))
+        {
+          if(in_array($user->permission,$role))
           return $next($request);
+        }
+        else
+        {
+          if($user->permission==$role)
+          return $next($request);
+        }
+
     
         return redirect('/');
       }

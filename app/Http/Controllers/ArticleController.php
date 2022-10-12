@@ -22,6 +22,11 @@ class ArticleController extends Controller
         $this->articleService = $articleService;
     }
 
+    public function page()
+    {
+        return view('article');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +38,6 @@ class ArticleController extends Controller
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
         $articles = PageContent::orderBy('created_at','desc')->paginate(15);
         return ArticleResource::collection($articles);
-
     }
 
     /**

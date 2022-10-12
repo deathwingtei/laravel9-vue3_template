@@ -19,8 +19,9 @@ class RoleMiddleware
     public function handle($request, Closure $next, String $role) {
         if (!Auth::check()) // This isnt necessary, it should be part of your 'auth' middleware
           return redirect('/');
-    
+
         $user = Auth::user();
+        $role = explode("|",$role);
         if(is_array($role))
         {
           if(in_array($user->permission,$role))

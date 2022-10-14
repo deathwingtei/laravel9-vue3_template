@@ -35,8 +35,8 @@ class LoginController extends Controller
     public function redirectTo() {
         $role = Auth::user()->permission; 
 
-        $tokenobj = Auth::user()->createToken('api_token');
-        $token = $tokenobj->plainTextToken;
+        // $tokenobj = Auth::user()->createToken('api_token');
+        // $token = $tokenobj->plainTextToken;
 
         switch ($role) {
           case 'admin':

@@ -85,6 +85,10 @@ class ArticleController extends Controller
                 $storageimg_path = "storage/images/".$img_name;
                 $articles->image = $storageimg_path;
             }
+            else
+            {
+                $articles->image = null;
+            }
             $articles->save();
             $id = $articles->id;
         }

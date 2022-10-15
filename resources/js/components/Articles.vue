@@ -199,6 +199,7 @@ export default {
                     },
                 }).then(res => res.json())
                     .then(data => {
+                        console.log(data);
                         this.article.title = '';
                         this.article.body = '';
                         this.article.image = '';

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Helper\Helper;
 use App\Models\User;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -53,6 +54,25 @@ class UserController extends Controller
         }
         return UserResource::collection($users);
         // return json_encode($users,JSON_UNESCAPED_UNICODE);
+    }
+
+    public function storex(Request $request)
+    {
+        if($request->input('password')!="")
+        {
+            $users = new User;
+            $users->name = $request->input('name');
+            $users->email = $request->input('email');
+            $users->password = Hash::make($request->input('password'));
+            $users->permission = $request->input('permission');
+            $users->save();
+            $id = $users->id;
+        }
+        else
+        {
+            $id = 0;
+        }
+        return $id;
     }
 
     public function store(Request $request)

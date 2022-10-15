@@ -43,7 +43,14 @@ class UserController extends Controller
     public function list()
     {
         //Get users
-        $users = User::orderBy('created_at','desc')->where("permission","!=","god")->where("permission","!=","admin")->paginate(5);
+        if(Auth::user()->permission=="god")
+        {
+            $users = User::orderBy('created_at','desc')->where("permission","!=","god")->paginate(5);
+        }
+        else
+        {
+            $users = User::orderBy('created_at','desc')->where("permission","!=","god")->where("permission","!=","admin")->paginate(5);
+        }
         return UserResource::collection($users);
         // return json_encode($users,JSON_UNESCAPED_UNICODE);
     }
@@ -54,17 +61,31 @@ class UserController extends Controller
         {
             $id = $request->input('id');
             $users =  User::find($id);
-            $users->title = $request->input('title');
-            $users->body = $request->input('body');
+            $users->name = $request->input('name');
+            $users->email = $request->input('email');
+            if($request->input('password')!="")
+            {
+                $users->password = ash::make($request->input('password'));
+            }
+            $users->permission = $request->input('permission');
             $users->save();
         }
         else
         {
-            $users = new User;
-            $users->title = $request->input('title');
-            $users->body = $request->input('body');
-            $users->save();
-            $id = $users->id;
+            if($request->input('password')!="")
+            {
+                $users = new User;
+                $users->name = $request->input('name');
+                $users->email = $request->input('email');
+                $users->password = Hash::make($request->input('password'));
+                $users->permission = $request->input('permission');
+                $users->save();
+                $id = $users->id;
+            }
+            else
+            {
+                $id = 0;
+            }
         }
 
         return $id;

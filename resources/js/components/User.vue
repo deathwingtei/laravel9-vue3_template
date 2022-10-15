@@ -25,37 +25,37 @@
 
                   <!-- Modal body -->
                   <div class="modal-body">
-                      <form @submit.prevent="adduser" class="mb-3">
+                      <form @submit.prevent="addUser" class="mb-3">
                         <div class="mb-3">
                           <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name" v-model ="user.name">
+                            <input type="text" name="name" class="form-control" placeholder="Name" v-model ="user.name" required>
                           </div>
                         </div>
                         <div class="mb-3">
                           <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Email" v-model ="user.email">
+                            <input type="text" name="email" class="form-control" placeholder="Email" v-model ="user.email" required>
                           </div>
                         </div>
                         <div class="mb-3">
                           <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Password">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" v-model="user.password">
                           </div>
                         </div>
                         <div class="mb-3">
                           <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Confirm Password">
+                            <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm Password" v-model="user.confirm_password">
                           </div>
                         </div>
                         <div class="mb-3"  v-if="permission_show">
                           <div class="form-group">
-                            <select class="form-control" placeholder="Permission"  v-model="selected">
+                            <select class="form-control" placeholder="Permission" name="permission" id="permission"  v-model="user.permission" required>
                               <option v-for="option in permission_options" :key="option.value" :value="option.value">
                                 {{ option.value }}
                               </option>
                             </select>
                           </div>
                         </div>
-                          <button type="submit" class="btn btn-info btn-block">Save</button>
+                        <button type="submit" class="btn btn-info btn-block">Save</button>
                       </form>
                   </div>
 
@@ -95,7 +95,7 @@ export default {
         email: "",
         password: "",
         confirm_password: "",
-        permission: "",
+        permission: "user",
       },
       selected: "user",
       permission_options: [
@@ -125,7 +125,13 @@ export default {
     fetchData(page_url) {
       let vm = this;
       page_url = page_url || "/local/users_api";
-      fetch(page_url)
+      fetch(page_url, {
+        method: "get",
+        headers: {
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+      })
         .then((res) => res.json())
         .then((res) => {
           this.users = res.data;
@@ -137,6 +143,8 @@ export default {
         method: "get",
         headers: {
           "content-type": "application/json",
+          "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+          'X-Requested-With': 'XMLHttpRequest'
         },
       })
         .then((res) => res.json())
@@ -172,6 +180,10 @@ export default {
       if (confirm("Are you sure?")) {
         fetch("/local/user_api/" + id, {
           method: "DELETE",
+          headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
+          },
         })
           .then((res) => res.json())
           .then((data) => {
@@ -184,20 +196,34 @@ export default {
       }
     },
     addUser() {
+      if(this.user.password!=this.user.confirm_password)
+      {
+        alert("Password not match");
+        return false;
+      }
+
+      console.log(this.user);
+      
       if (this.edit === false) {
         //Add
         fetch("/local/user_api/", {
-          method: "post",
+          method: "POST",
           body: JSON.stringify(this.user),
           headers: {
             "content-type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
           },
         })
           .then((res) => res.json())
           .then((data) => {
-            this.user.title = "";
-            this.user.body = "";
-            alert("user Added");
+            this.user.id = "";
+            this.user.name = "";
+            this.user.email = "";
+            this.user.password = "";
+            this.user.confirm_password = "";
+            this.user.permission = "user";
+            alert("User Added");
             this.fetchData();
             this.modal.hide();
           })
@@ -207,10 +233,12 @@ export default {
       } else {
         //update
         fetch("/local/user_api/", {
-          method: "put",
+          method: "PUT",
           body: JSON.stringify(this.user),
           headers: {
             "content-type": "application/json",
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'X-Requested-With': 'XMLHttpRequest'
           },
         })
           .then((res) => res.json())
@@ -233,6 +261,8 @@ export default {
       this.user_id = user.id;
       this.user.name = user.name;
       this.user.email = user.email;
+      this.user.password = "";
+      this.user.confirm_password = "";
       this.user.permission = user.permission;
       this.modal.show();
     },
@@ -242,7 +272,7 @@ export default {
       this.user_id = "";
       this.user.name = "";
       this.user.email = "";
-      this.user.permission = "";
+      this.user.permission = "user";
       this.modal.show();
     },
   },

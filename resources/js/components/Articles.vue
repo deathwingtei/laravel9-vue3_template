@@ -140,7 +140,13 @@ export default {
         fetchArticles(page_url) {
             let vm = this;
             page_url = page_url || '/local/articles'
-            fetch(page_url)
+            fetch(page_url, {
+                method: "get",
+                headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'X-Requested-With': 'XMLHttpRequest'
+                },
+            })
                 .then(res => res.json())
                 .then(res => {
                     this.articles = res.data;
@@ -162,7 +168,11 @@ export default {
         deleteArticle(id) {
             if (confirm('Are you sure?')) {
                 fetch('/local/article/' + id, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                    },
                 }).then(res => res.json())
                     .then(data => {
                         alert("Article removed!");
@@ -183,6 +193,10 @@ export default {
                 fetch('/local/article/', {
                     method: 'post',
                     body: formdata,
+                    headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                    },
                 }).then(res => res.json())
                     .then(data => {
                         this.article.title = '';
@@ -192,15 +206,17 @@ export default {
 
                         this.modal.hide();
                         this.fetchArticles();
-                    }).catch(err => {
-                        console.log(err);
-                    });
+                    })
             }
             else {
                 //update
                 fetch('/local/article/', {
                     method: 'put',
                     body: formdata,
+                    headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                    },
                 }).then(res => res.json())
                     .then(data => {
                         this.article.title = '';

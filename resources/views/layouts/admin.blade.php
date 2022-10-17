@@ -43,8 +43,8 @@
                         @endif
                         @if( Auth::user()->permission == "admin" || Auth::user()->permission == "god" )
                         <li class="nav-item ">
-                            <a class="nav-link @if(Request::segment(2)=='websitesettings') active @endif"
-                                href="{{ url('/admin/websitesettings') }}">Setting</a>
+                            <a class="nav-link @if(Request::segment(2)=='websitesetting') active @endif"
+                                href="{{ url('/admin/websitesetting') }}">Setting</a>
                         </li>
                         @endif
                     </ul>

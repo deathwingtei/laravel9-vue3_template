@@ -37,16 +37,9 @@ class ArticleController extends Controller
     public function index()
     {
         //Get articles
+        $articles = PageContent::orderBy('created_at','desc')->paginate(5);
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
-        $articles = PageContent::orderBy('created_at','desc')->paginate(15);
         $articles = ArticleResource::collection($articles);
-        // $websitesetting = WebsiteSetting::where('type','=','page')->get();
-        // $websitesetting = WebsiteSettingResource::collection($websitesetting);
-
-        // $returndata = array(
-        //     'article' => $articles,
-        //     'websitesetting' => $websitesetting
-        // );
 
         return  $articles;
     }

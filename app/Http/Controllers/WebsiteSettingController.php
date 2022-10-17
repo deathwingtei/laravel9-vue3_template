@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WebsiteSetting;
 use App\Http\Resources\WebsiteSettingResource;
+use App\Services\WebsiteSettingService;
 
 class WebsiteSettingController extends Controller
 {
+    public function __construct(WebsiteSettingService $websiteSettingService)
+    {
+        $this->websiteSettingService = $websiteSettingService;
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -22,6 +22,7 @@ import Navbar from './components/Navbar.vue';
 import Articles from './components/Articles.vue';
 import Home from './components/Home.vue';
 import User from './components/User.vue';
+import WebsiteSetting from './components/WebsiteSetting.vue';
 app.component('example-component', ExampleComponent);
 /**
  * The following block of code may be used to automatically register your
@@ -38,6 +39,7 @@ app.component('navbar', Navbar);
 app.component('articles', Articles);
 app.component('home', Home);
 app.component('user', User);
+app.component('websitesetting', WebsiteSetting);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

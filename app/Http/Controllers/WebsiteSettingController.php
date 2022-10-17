@@ -32,6 +32,11 @@ class WebsiteSettingController extends Controller
         return  $websitesetting;
     }
 
+    public function view()
+    {
+        return view('websitesetting');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
     Route::middleware(['role:god|admin'])->group(function () {
         Route::get('/admin/article', function () { return view('article');  });
         Route::get('/admin/user', function () { return view('user');  });
+        Route::get('/admin/websitesetting', function () { return view('websitesetting');  });
+
 
         //API From Local
 

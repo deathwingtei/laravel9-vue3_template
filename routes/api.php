@@ -30,6 +30,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/article', [App\Http\Controllers\ArticleController::class, 'store']);
     //delete article
     Route::delete('/article/{id}', [App\Http\Controllers\ArticleController::class, 'destroy']);
+    //WebsiteSetting Set
+    // List Articles
+    Route::get('/websitesettings', [App\Http\Controllers\WebsiteSettingController::class, 'index']);
+    // single Article
+    Route::get('/websitesetting/{id}', [App\Http\Controllers\WebsiteSettingController::class, 'show']);
+    //create new article
+    Route::post('/websitesetting', [App\Http\Controllers\WebsiteSettingController::class, 'store']);
+    //update article
+    Route::put('/websitesetting', [App\Http\Controllers\WebsiteSettingController::class, 'store']);
+    //delete article
+    Route::delete('/websitesetting/{id}', [App\Http\Controllers\WebsiteSettingController::class, 'destroy']);
     //user set
     // List User
     Route::get('/users_api', [App\Http\Controllers\UserController::class, 'list']);

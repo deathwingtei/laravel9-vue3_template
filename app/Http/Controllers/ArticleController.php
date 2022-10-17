@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PageContent;
+use App\Models\WebsiteSetting;
 use App\Http\Resources\ArticleResource;
+use App\Http\Resources\WebsiteSettingResource;
 use App\Services\ArticleService;
 
 
@@ -37,7 +39,16 @@ class ArticleController extends Controller
         //Get articles
         // return json_encode($articles,JSON_UNESCAPED_UNICODE);
         $articles = PageContent::orderBy('created_at','desc')->paginate(15);
-        return ArticleResource::collection($articles);
+        $articles = ArticleResource::collection($articles);
+        // $websitesetting = WebsiteSetting::where('type','=','page')->get();
+        // $websitesetting = WebsiteSettingResource::collection($websitesetting);
+
+        // $returndata = array(
+        //     'article' => $articles,
+        //     'websitesetting' => $websitesetting
+        // );
+
+        return  $articles;
     }
 
     /**

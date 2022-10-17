@@ -20,6 +20,7 @@ class ArticleResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'image' => $this->image,
+            'page_id' => $this->page_id,
         ];
     }
 }

@@ -61,6 +61,15 @@
                                 </div>
                             </div>
                             <div class="mb-3">
+                                <div class="form-group">
+                                    <select class="form-control" placeholder="Page" name="page_id" id="page_id"  v-model="article.page_id" required>
+                                    <option v-for="websitesetting in websitesettings" :key="websitesetting.id" :value="websitesetting.id">
+                                        {{ websitesetting.title }}
+                                    </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
                                 <input type="file" name="article_file" id="article_file"  @change="handleFileUpload( $event )">
                             </div>
                             <button type="submit" class="btn btn-info btn-block">Save</button>
@@ -84,11 +93,13 @@ export default {
     data() {
         return {
             articles: [],
+            websitesettings: [],
             article: {
                 id: '',
                 title: '',
                 body: '',
                 image: '',
+                page_id: '',
                 file: ''
             },
             article_id: '',
@@ -147,13 +158,28 @@ export default {
                 'X-Requested-With': 'XMLHttpRequest'
                 },
             })
+            .then(res => res.json())
+            .then(res => {
+                this.articles = res.data;
+                vm.makePagination(res.meta, res.links);
+                page_url = '/local/websitesettings/page'
+                fetch(page_url, {
+                    method: "get",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                })
                 .then(res => res.json())
                 .then(res => {
-                    this.articles = res.data;
-                    vm.makePagination(res.meta, res.links);
+                    this.websitesettings = res.data;
                 }).catch(err => {
                     console.log(err);
-                })
+                });
+            }).catch(err => {
+                console.log(err);
+            });
+                
         },
         makePagination(meta, links) {
             let pagination = {
@@ -170,8 +196,8 @@ export default {
                 fetch('/local/article/' + id, {
                     method: 'DELETE',
                     headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'X-Requested-With': 'XMLHttpRequest'
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                 }).then(res => res.json())
                     .then(data => {
@@ -194,8 +220,8 @@ export default {
                     method: 'post',
                     body: formdata,
                     headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'X-Requested-With': 'XMLHttpRequest'
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                 }).then(res => res.json())
                     .then(data => {
@@ -203,6 +229,7 @@ export default {
                         this.article.title = '';
                         this.article.body = '';
                         this.article.image = '';
+                        this.article.page_id = 9;
                         alert('Article Added');
 
                         this.modal.hide();
@@ -215,14 +242,15 @@ export default {
                     method: 'put',
                     body: formdata,
                     headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'X-Requested-With': 'XMLHttpRequest'
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                 }).then(res => res.json())
                     .then(data => {
                         this.article.title = '';
                         this.article.body = '';
                         this.article.image = '';
+                        this.article.page_id = 9;
                         alert('Article Updated');
 
                         this.modal.hide();
@@ -240,6 +268,8 @@ export default {
             this.article.id = article.id;
             this.article_id = article.id;
             this.article.title = article.title;
+            this.article.page_id = article.page_id;
+            console.log(this.article);
             if (article.body == null) {
                 article.body = "";
             }
@@ -260,6 +290,7 @@ export default {
             this.article.title = '';
             this.article.body = '';
             this.article.image = '';
+            this.article.page_id = 9;
             document.querySelector("#article_file").value = "";
             this.modal.show();
         }

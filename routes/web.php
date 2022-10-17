@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('/admin/user', function () { return view('user');  });
 
         //API From Local
+
+        //Articles Set
         // List Articles
         Route::get('/local/articles', [App\Http\Controllers\ArticleController::class, 'index']);
         // single Article
@@ -28,7 +30,22 @@ use Illuminate\Support\Facades\Route;
         Route::put('/local/article', [App\Http\Controllers\ArticleController::class, 'store']);
         //delete article
         Route::delete('/local/article/{id}', [App\Http\Controllers\ArticleController::class, 'destroy']);
-        //user set
+
+        //WebsiteSetting Set
+        // List Articles
+        Route::get('/local/websitesettings', [App\Http\Controllers\WebsiteSettingController::class, 'index']);
+        // List of page Articles
+        Route::get('/local/websitesettings/page', [App\Http\Controllers\WebsiteSettingController::class, 'page']);
+        // single Article
+        Route::get('/local/websitesetting/{id}', [App\Http\Controllers\WebsiteSettingController::class, 'show']);
+        //create new article
+        Route::post('/local/websitesetting', [App\Http\Controllers\WebsiteSettingController::class, 'store']);
+        //update article
+        Route::put('/local/websitesetting', [App\Http\Controllers\WebsiteSettingController::class, 'store']);
+        //delete article
+        Route::delete('/local/websitesetting/{id}', [App\Http\Controllers\WebsiteSettingController::class, 'destroy']);
+
+        //User Set
         // List User
         Route::get('/local/users_api', [App\Http\Controllers\UserController::class, 'list']);
         //single Users

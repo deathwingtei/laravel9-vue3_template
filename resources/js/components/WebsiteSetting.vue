@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h2>Contents</h2>
+        <h2>Setting</h2>
         <div class="row">
             <div class="col-md-12 ">
-                <button class="btn btn-info float-end  mb-5" @click="clearSetting()">Add Article</button>
+                <button class="btn btn-info float-end  mb-5" @click="clearSetting()">Add Setting</button>
             </div>
         </div>
 
@@ -54,6 +54,15 @@
                                 </div>
                             </div>
                             <div class="mb-3">
+                                <div class="form-group">
+                                    <select class="form-control" placeholder="Page" name="type" id="type"  v-model="websitesetting.type" required>
+                                    <option v-for="types in websitesetting_type" :key="types" :value="types">
+                                        {{ types }}
+                                    </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
                                 <input type="file" name="setting_file" id="setting_file"  @change="handleFileUpload( $event )">
                             </div>
                             <button type="submit" class="btn btn-info btn-block">Save</button>
@@ -87,6 +96,11 @@ export default {
             },
             websitesetting_id: '',
             pagination: {},
+            websitesetting_type: [
+                'page','favicon','site_name','company_name','tel','email'
+            ],
+            websitesetting_content_size: ['no', 'one', 'many'],
+            websitesetting_editable_data: ['title', 'body', 'image'],
             edit: false,
             modal: null,
         }
@@ -117,20 +131,6 @@ export default {
             .then(res => {
                 this.websitesettings = res.data;
                 vm.makePagination(res.meta, res.links);
-                page_url = '/local/websitesettings/page'
-                fetch(page_url, {
-                    method: "get",
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                })
-                .then(res => res.json())
-                .then(res => {
-                    this.websitesettings = res.data;
-                }).catch(err => {
-                    console.log(err);
-                });
             }).catch(err => {
                 console.log(err);
             });

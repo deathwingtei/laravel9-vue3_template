@@ -36,7 +36,7 @@ return new class extends Migration
                     'updated_at' => date("Y-m-d H:i:s")
                 ],
                 [
-                    'title' => '',
+                    'title' => 'Favicon',
                     'type' => 'favicon',
                     'content_size' => 'no',
                     'editable_data' => null,

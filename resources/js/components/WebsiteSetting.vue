@@ -55,11 +55,30 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
+                                    <label for="type" class="form-label">Type</label>
                                     <select class="form-control" placeholder="Page" name="type" id="type"  v-model="websitesetting.type" required>
-                                    <option v-for="types in websitesetting_type" :key="types" :value="types">
-                                        {{ types }}
-                                    </option>
+                                        <option v-for="types in websitesetting_type" :key="types" :value="types">
+                                            {{ types }}
+                                        </option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <label for="content_size" class="form-label">Content Size</label>
+                                    <select class="form-control" placeholder="Content Size" name="content_size" id="content_size"  v-model="websitesetting.content_size" required>
+                                        <option v-for="size in websitesetting_content_size" :key="size" :value="size">
+                                            {{ size }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline"  v-for="canedit in websitesetting_editable_data" :key="canedit">
+                                        <input class="form-check-input" type="checkbox" :true-value="[]" :id="canedit"  v-model="websitesetting.editable_data"  :value="canedit">
+                                        <label class="form-check-label" :for="canedit">{{ canedit }}</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -101,6 +120,7 @@ export default {
             ],
             websitesetting_content_size: ['no', 'one', 'many'],
             websitesetting_editable_data: ['title', 'body', 'image'],
+            check_edit: "",
             edit: false,
             modal: null,
         }
@@ -233,6 +253,8 @@ export default {
             this.websitesetting.content_size = websitesetting.content_size;
             this.websitesetting.editable_data = websitesetting.editable_data;
 
+            console.log(this.websitesetting.editable_data);
+            
             if (websitesetting.image != null && websitesetting.image != "") {
                 this.websitesetting.image = appurl + websitesetting.image;
             }

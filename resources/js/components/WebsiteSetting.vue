@@ -76,7 +76,8 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <div class="form-check form-check-inline"  v-for="canedit in websitesetting_editable_data" :key="canedit">
-                                        <input class="form-check-input" type="checkbox" :true-value="[]" :id="canedit"  v-model="websitesetting.editable_data"  :value="canedit">
+                                        <input class="form-check-input" type="checkbox" :true-value="[]" :id="canedit" 
+                                        :checked="websitesetting.editable_data.includes(canedit)"  v-model="websitesetting.editable_data"  :value="canedit">
                                         <label class="form-check-label" :for="canedit">{{ canedit }}</label>
                                     </div>
                                 </div>
@@ -202,7 +203,7 @@ export default {
                     },
                 }).then(res => res.json())
                     .then(data => {
-                        console.log(data);
+
                         this.websitesetting.id = '';
                         this.websitesetting.title = '';
                         this.websitesetting.type = '';
@@ -252,8 +253,6 @@ export default {
             this.websitesetting.type = websitesetting.type;
             this.websitesetting.content_size = websitesetting.content_size;
             this.websitesetting.editable_data = websitesetting.editable_data;
-
-            console.log(this.websitesetting.editable_data);
             
             if (websitesetting.image != null && websitesetting.image != "") {
                 this.websitesetting.image = appurl + websitesetting.image;

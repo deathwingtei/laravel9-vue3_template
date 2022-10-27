@@ -63,9 +63,9 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <select class="form-control" placeholder="Page" name="page_id" id="page_id"  v-model="article.page_id" required>
-                                    <option v-for="websitesetting in websitesettings" :key="websitesetting.id" :value="websitesetting.id">
-                                        {{ websitesetting.title }}
-                                    </option>
+                                        <option v-for="websitesetting in websitesettings" :key="websitesetting.id" :value="websitesetting.id" :data-size="websitesetting.content_size" :data-edit="websitesetting.editable_data">
+                                            {{ websitesetting.title }}
+                                        </option>
                                     </select>
                                 </div>
                             </div>

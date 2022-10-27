@@ -76,7 +76,7 @@
                             <div class="mb-3">
                                 <div class="form-group">
                                     <div class="form-check form-check-inline"  v-for="canedit in websitesetting_editable_data" :key="canedit">
-                                        <input class="form-check-input" type="checkbox" :true-value="[]" :id="canedit" 
+                                        <input class="form-check-input" type="checkbox" :true-value="[]" :false-value="[]" :id="canedit" 
                                         :checked="websitesetting.editable_data.includes(canedit)"  v-model="websitesetting.editable_data"  :value="canedit">
                                         <label class="form-check-label" :for="canedit">{{ canedit }}</label>
                                     </div>
@@ -111,7 +111,7 @@ export default {
                 title: '',
                 type: '',
                 content_size: '',
-                editable_data: '',
+                editable_data: [],
                 image: '',
             },
             websitesetting_id: '',
@@ -186,6 +186,7 @@ export default {
         },
         addSetting() {
             let formdata = new FormData();
+
             formdata.append('id', this.websitesetting.id);
             formdata.append('title', this.websitesetting.title);
             formdata.append('type', this.websitesetting.type);
@@ -208,7 +209,7 @@ export default {
                         this.websitesetting.title = '';
                         this.websitesetting.type = '';
                         this.websitesetting.content_size = '';
-                        this.websitesetting.editable_data = '';
+                        this.websitesetting.editable_data = [];
                         this.websitesetting.image = '';
                         alert('Setting Added');
 
@@ -231,7 +232,7 @@ export default {
                         this.websitesetting.title = '';
                         this.websitesetting.type = '';
                         this.websitesetting.content_size = '';
-                        this.websitesetting.editable_data = '';
+                        this.websitesetting.editable_data = [];
                         this.websitesetting.image = '';
                         alert('Setting Updated');
 
@@ -252,8 +253,19 @@ export default {
             this.websitesetting.title = websitesetting.title;
             this.websitesetting.type = websitesetting.type;
             this.websitesetting.content_size = websitesetting.content_size;
-            this.websitesetting.editable_data = websitesetting.editable_data;
-            
+            if (websitesetting.editable_data != null && websitesetting.editable_data != "") {
+                this.websitesetting.editable_data = [];
+                let chksetting = websitesetting.editable_data.split(",");
+                let setitem = [];
+                chksetting.forEach(function(item){
+                    setitem.push(item);
+                });
+                this.websitesetting.editable_data = setitem;
+            }
+            else {
+                this.websitesetting.editable_data = [];
+            }
+
             if (websitesetting.image != null && websitesetting.image != "") {
                 this.websitesetting.image = appurl + websitesetting.image;
             }
@@ -269,7 +281,7 @@ export default {
             this.websitesetting.title = '';
             this.websitesetting.type = '';
             this.websitesetting.content_size = '';
-            this.websitesetting.editable_data = '';
+            this.websitesetting.editable_data = [];
             this.websitesetting.image = '';
             document.querySelector("#setting_file").value = "";
             this.modal.show();

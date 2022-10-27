@@ -61,7 +61,61 @@ class WebsiteSettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->input('id'))
+        {
+            $id = $request->input('id');
+            $setting =  WebsiteSetting::find($id);
+            $setting->title = $request->input('title');
+            $setting->type = $request->input('type');
+            $setting->content_size = $request->input('content_size');
+            if($request->input('editable_data')==""||$request->input('editable_data')=="[]")
+            {
+                $setting->editable_data = null;
+            }
+            else
+            {
+                $setting->editable_data = $request->input('editable_data');
+            }
+            
+            if (!is_null($request->file('image'))) {
+                $ext = $request->file('image')->getClientOriginalExtension();
+                $img_name = "setting_".rand(0,10000)."_".time().".".$ext;
+                $this->websiteSettingService->handleUploadedImage($request->file('image'),$img_name);
+                $storageimg_path = "storage/images/".$img_name;
+                $setting->image = $storageimg_path;
+            }
+            $setting->save();
+        }
+        else
+        {
+            $setting = new WebsiteSetting;
+            $setting->title = $request->input('title');
+            $setting->type = $request->input('type');
+            $setting->content_size = $request->input('content_size');
+            if($request->input('editable_data')==""||$request->input('editable_data')=="[]")
+            {
+                $setting->editable_data = null;
+            }
+            else
+            {
+                $setting->editable_data = $request->input('editable_data');
+            }
+            if (!is_null($request->file('image'))) {
+                $ext = $request->file('image')->getClientOriginalExtension();
+                $img_name = "setting_".rand(0,10000)."_".time().".".$ext;
+                $this->websiteSettingService->handleUploadedImage($request->file('image'),$img_name);
+                $storageimg_path = "storage/images/".$img_name;
+                $setting->image = $storageimg_path;
+            }
+            else
+            {
+                $setting->image = null;
+            }
+            $setting->save();
+            $id = $setting->id;
+        }
+
+        return $id;
     }
 
     /**

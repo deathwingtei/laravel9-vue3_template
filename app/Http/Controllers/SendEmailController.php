@@ -34,7 +34,7 @@ class SendEmailController extends Controller
         ];
         
 
-        Mail::to('p.kittichet@gmail.com')->send(new NotifyMail($mailData));
+        Mail::to(env('EMAIL_RECIEVER'))->send(new NotifyMail($mailData));
     
         if (Mail::flushMacros()) {
             // return response()->Fail('Sorry! Please try again latter');

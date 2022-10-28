@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PageContent;
 use App\Models\WebsiteSetting;
+use App\Http\Resources\ArticleResource;
 use App\Http\Resources\WebsiteSettingResource;
+use App\Services\ArticleService;
 use App\Services\WebsiteSettingService;
 
 class WebsiteSettingController extends Controller
@@ -35,6 +38,12 @@ class WebsiteSettingController extends Controller
     {
         $websitesetting = WebsiteSetting::where('type','=','page')->get();
         $websitesetting = WebsiteSettingResource::collection($websitesetting);
+        foreach (collect($websitesetting) as $key => $value) {
+            print_r($value['id']);
+        }
+        $articles = PageContent::orderBy('created_at','desc')->get();
+        $articles = ArticleResource::collection($articles);
+        print_r(collect($articles));
         return  $websitesetting;
     }
 

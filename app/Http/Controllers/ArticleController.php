@@ -120,7 +120,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -132,6 +134,19 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $id = $request->input('id');
+        $articles =  PageContent::find($id);
+        $articles->title = $request->input('title');
+        $articles->body = $request->input('body');
+        if (!is_null($request->file('file'))) {
+            $ext = $request->file('file')->getClientOriginalExtension();
+            $img_name = "article_".rand(0,10000)."_".time().".".$ext;
+            $this->articleService->handleUploadedImage($request->file('file'),$img_name);
+            $storageimg_path = "storage/images/".$img_name;
+            $articles->image = $storageimg_path;
+        }
+        $articles->save();
+        return $id;
     }
 
     /**

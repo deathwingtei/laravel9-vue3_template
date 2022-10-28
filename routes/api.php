@@ -33,6 +33,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //WebsiteSetting Set
     // List Articles
     Route::get('/websitesettings', [App\Http\Controllers\WebsiteSettingController::class, 'index']);
+    // List of page Articles
+    Route::get('websitesettings/page', [App\Http\Controllers\WebsiteSettingController::class, 'page']);
+    // List of page Articles No Dupplicate With Current Page ID
+    Route::get('/websitesettings/duppage', [App\Http\Controllers\WebsiteSettingController::class, 'duppage']);
     // single Article
     Route::get('/websitesetting/{id}', [App\Http\Controllers\WebsiteSettingController::class, 'show']);
     //create new article

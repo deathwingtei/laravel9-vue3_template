@@ -162,20 +162,6 @@ export default {
             .then(res => {
                 this.articles = res.data;
                 vm.makePagination(res.meta, res.links);
-                page_url = '/local/websitesettings/page'
-                fetch(page_url, {
-                    method: "get",
-                    headers: {
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                })
-                .then(res => res.json())
-                .then(res => {
-                    this.websitesettings = res.data;
-                }).catch(err => {
-                    console.log(err);
-                });
             }).catch(err => {
                 console.log(err);
             });
@@ -214,6 +200,7 @@ export default {
             formdata.append('title', this.article.title);
             formdata.append('body', this.article.body);
             formdata.append('file', this.article.file);
+            formdata.append('page_id', this.article.page_id);
             if (this.edit === false) {
                 //Add
                 fetch('/local/article/', {
@@ -269,7 +256,6 @@ export default {
             this.article_id = article.id;
             this.article.title = article.title;
             this.article.page_id = article.page_id;
-            console.log(this.article);
             if (article.body == null) {
                 article.body = "";
             }
@@ -280,8 +266,25 @@ export default {
             else {
                 this.article.image = "";
             }
+            this.getDupplicatePage(article.page_id);
+            
 
             this.modal.show();
+        },
+        getDupplicatePage(page_id) {
+            fetch('/local/websitesettings/duppage?thispageid='+page_id, {
+                method: "get",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+            })
+            .then(res => res.json())
+            .then(res => {
+                this.websitesettings = res;
+            }).catch(err => {
+                console.log(err);
+            });
         },
         clearArticle() {
             this.edit = false;
@@ -293,6 +296,7 @@ export default {
             this.article.page_id = 9;
             document.querySelector("#article_file").value = "";
             this.modal.show();
+            this.getDupplicatePage(0);
         }
     },
     watch: {

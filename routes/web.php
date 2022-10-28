@@ -38,6 +38,8 @@ use Illuminate\Support\Facades\Route;
         Route::get('/local/websitesettings', [App\Http\Controllers\WebsiteSettingController::class, 'index']);
         // List of page Articles
         Route::get('/local/websitesettings/page', [App\Http\Controllers\WebsiteSettingController::class, 'page']);
+        // List of page Articles No Dupplicate With Current Page ID
+        Route::get('/local/websitesettings/duppage', [App\Http\Controllers\WebsiteSettingController::class, 'duppage']);
         // single Article
         Route::get('/local/websitesetting/{id}', [App\Http\Controllers\WebsiteSettingController::class, 'show']);
         //create new article

@@ -68,6 +68,7 @@ class ArticleController extends Controller
             $articles =  PageContent::find($id);
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
+            $articles->page_id = $request->input('page_id');
             if (!is_null($request->file('file'))) {
                 $ext = $request->file('file')->getClientOriginalExtension();
                 $img_name = "article_".rand(0,10000)."_".time().".".$ext;
@@ -82,6 +83,7 @@ class ArticleController extends Controller
             $articles = new PageContent;
             $articles->title = $request->input('title');
             $articles->body = $request->input('body');
+            $articles->page_id = $request->input('page_id');
             if (!is_null($request->file('file'))) {
                 $ext = $request->file('file')->getClientOriginalExtension();
                 $img_name = "article_".rand(0,10000)."_".time().".".$ext;

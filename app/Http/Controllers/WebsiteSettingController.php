@@ -38,13 +38,36 @@ class WebsiteSettingController extends Controller
     {
         $websitesetting = WebsiteSetting::where('type','=','page')->get();
         $websitesetting = WebsiteSettingResource::collection($websitesetting);
-        foreach (collect($websitesetting) as $key => $value) {
-            print_r($value['id']);
+        return $websitesetting;
+    }
+
+    public function duppage(Request $request)
+    {
+        $websitesetting = WebsiteSetting::where('type','=','page')->get();
+        $websitesetting = collect(WebsiteSettingResource::collection($websitesetting))->toArray();
+        $article_count = PageContent::groupBy('page_id')->selectRaw('count(*) as total, page_id')->get()->toArray();
+        $has_array = array();
+        foreach ($article_count as $key => $value) {
+            if($value['total']>=1)
+            {
+                if($request->input('thispageid')!=$value['page_id'])
+                {
+                    $has_array[] = $value['page_id'];
+                }
+
+            }
         }
-        $articles = PageContent::orderBy('created_at','desc')->get();
-        $articles = ArticleResource::collection($articles);
-        print_r(collect($articles));
-        return  $websitesetting;
+
+        foreach ($websitesetting as $key => $value) {
+            if($value['content_size']=="one")
+            {
+                if (in_array($value['id'], $has_array)) {
+                    unset($websitesetting[$key]);
+                }
+            }
+        }
+
+        return  array_values($websitesetting);
     }
 
     public function view()

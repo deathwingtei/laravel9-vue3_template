@@ -62,8 +62,10 @@
                             </div>
                             <div class="mb-3">
                                 <div class="form-group">
-                                    <select class="form-control" placeholder="Page" name="page_id" id="page_id"  v-model="article.page_id" required>
-                                        <option v-for="websitesetting in websitesettings" :key="websitesetting.id" :value="websitesetting.id" :data-size="websitesetting.content_size" :data-edit="websitesetting.editable_data">
+                                    <select class="form-control" @change="onPageChange($event)" placeholder="Page" name="page_id" id="page_id"  v-model="article.page_id" required>
+                                        <option v-for="websitesetting in websitesettings" :key="websitesetting.id" :value="websitesetting.id" 
+                                         :data-size="websitesetting.content_size" :data-edit="websitesetting.editable_data"
+                                        >
                                             {{ websitesetting.title }}
                                         </option>
                                     </select>
@@ -224,8 +226,9 @@ export default {
             }
             else {
                 //update
+                formdata.append('_method', 'PUT');
                 fetch('/local/article/', {
-                    method: 'put',
+                    method: 'post',
                     body: formdata,
                     headers: {
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -234,7 +237,7 @@ export default {
                 }).then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        
+
                         alert('Article Updated');
 
                         this.clearArticle();
@@ -301,6 +304,11 @@ export default {
             this.setEditable()
             this.modal.show();
             this.getDupplicatePage(0);
+        },
+        onPageChange(event)
+        {
+            this.show_editable = event.target.options[event.target.options.selectedIndex].getAttribute('data-edit');
+            this.setEditable();
         },
         setEditable()
         {

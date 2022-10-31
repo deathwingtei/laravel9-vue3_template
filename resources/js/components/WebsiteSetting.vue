@@ -219,8 +219,9 @@ export default {
             }
             else {
                 //update
+                formdata.append('_method', 'PUT');
                 fetch('/local/websitesetting/', {
-                    method: 'put',
+                    method: 'post',
                     body: formdata,
                     headers: {
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -245,9 +246,9 @@ export default {
             }
         },
         editSetting(websitesetting) {
+            this.clearSetting();
             this.edit = true;
             document.querySelector("#setting_file").value = "";
-            this.clearSetting();
             this.websitesetting.id = websitesetting.id;
             this.websitesetting_id = websitesetting.id;
             this.websitesetting.title = websitesetting.title;

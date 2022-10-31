@@ -42,7 +42,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Add / Edit Article</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <form @submit.prevent="addArticle" class="mb-3">
@@ -102,6 +102,7 @@ export default {
                 page_id: '',
                 file: ''
             },
+            show_editable: 'title,body,image',
             article_id: '',
             pagination: {},
             edit: false,
@@ -109,7 +110,6 @@ export default {
             editor: ClassicEditor,
             editorConfig: {
                 // The configuration of the editor.
-
                 toolbar: {
                     items: [
                         'sourceEditing',
@@ -132,12 +132,9 @@ export default {
 
         this.fetchArticles('/local/articles');
         this.modal = new Modal('#articleModal');
+
         // this.modal.addEventListener('hide.bs.modal', function (event) {
-        //     this.article.id = '';
-        //     this.article_id = '';
-        //     this.article.title = '';
-        //     this.article.body = '';
-        //     this.article.image = '';
+        //     clearArticle();
         // })
     },
     created() {
@@ -220,6 +217,7 @@ export default {
                         alert('Article Added');
 
                         this.modal.hide();
+                        this.clearArticle();
                         this.fetchArticles();
                     })
             }
@@ -241,6 +239,7 @@ export default {
                         alert('Article Updated');
 
                         this.modal.hide();
+                        this.clearArticle();
                         this.fetchArticles();
                     }).catch(err => {
                         console.log(err);
@@ -249,9 +248,9 @@ export default {
             }
         },
         editArticle(article) {
+            this.clearArticle();
             this.edit = true;
             document.querySelector("#article_file").value = "";
-            this.clearArticle();
             this.article.id = article.id;
             this.article_id = article.id;
             this.article.title = article.title;
@@ -267,7 +266,7 @@ export default {
                 this.article.image = "";
             }
             this.getDupplicatePage(article.page_id);
-            
+            this.show_editable = article.website_setting_editable_data;
 
             this.modal.show();
         },
@@ -282,6 +281,8 @@ export default {
             .then(res => res.json())
             .then(res => {
                 this.websitesettings = res;
+                // const thispageval = document.querySelector("#page_id");
+                // alert(thispageval.value);
             }).catch(err => {
                 console.log(err);
             });
@@ -295,14 +296,13 @@ export default {
             this.article.image = '';
             this.article.page_id = 9;
             document.querySelector("#article_file").value = "";
+            document.querySelector(".set_img_article_admin").src = "";
             this.modal.show();
             this.getDupplicatePage(0);
         }
     },
     watch: {
 
- 
-        // 
     }
 }
 </script>

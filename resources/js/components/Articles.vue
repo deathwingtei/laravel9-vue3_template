@@ -46,15 +46,15 @@
                     </div>
                     <div class="modal-body">
                         <form @submit.prevent="addArticle" class="mb-3">
-                            <div class="mb-3 text-center">
+                            <div class="mb-3 text-center" v-show="show_image">
                                 <img :src="article.image" class="img-fluid set_img_article_admin">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" v-show="show_title">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Title" v-model="article.title">
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" v-show="show_body">
                                 <div class="form-group">
                                     <ckeditor :editor="editor" v-model="article.body" :config="editorConfig"></ckeditor>
                                     <!-- <textarea class="form-control" id="main_content" placeholder="Description" v-model="article.body"></textarea> -->
@@ -69,7 +69,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" v-show="show_image">
                                 <input type="file" name="article_file" id="article_file"  @change="handleFileUpload( $event )">
                             </div>
                             <button type="submit" class="btn btn-info btn-block">Save</button>
@@ -102,7 +102,10 @@ export default {
                 page_id: '',
                 file: ''
             },
-            show_editable: 'title,body,image',
+            show_editable: 'title,image',
+            show_title: true,
+            show_body: false,
+            show_image: true,
             article_id: '',
             pagination: {},
             edit: false,
@@ -210,15 +213,13 @@ export default {
                 }).then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        this.article.title = '';
-                        this.article.body = '';
-                        this.article.image = '';
-                        this.article.page_id = 9;
+     
                         alert('Article Added');
 
-                        this.modal.hide();
+                        
                         this.clearArticle();
                         this.fetchArticles();
+                        this.modal.hide();
                     })
             }
             else {
@@ -232,15 +233,13 @@ export default {
                     },
                 }).then(res => res.json())
                     .then(data => {
-                        this.article.title = '';
-                        this.article.body = '';
-                        this.article.image = '';
-                        this.article.page_id = 9;
+                        console.log(data);
+                        
                         alert('Article Updated');
 
-                        this.modal.hide();
                         this.clearArticle();
                         this.fetchArticles();
+                        this.modal.hide();
                     }).catch(err => {
                         console.log(err);
                     });
@@ -267,6 +266,7 @@ export default {
             }
             this.getDupplicatePage(article.page_id);
             this.show_editable = article.website_setting_editable_data;
+            this.setEditable();
 
             this.modal.show();
         },
@@ -295,10 +295,43 @@ export default {
             this.article.body = '';
             this.article.image = '';
             this.article.page_id = 9;
+            this.show_editable = 'title,image';
             document.querySelector("#article_file").value = "";
             document.querySelector(".set_img_article_admin").src = "";
+            this.setEditable()
             this.modal.show();
             this.getDupplicatePage(0);
+        },
+        setEditable()
+        {
+            let thissetting = this.show_editable.split(',');
+
+            if(thissetting.indexOf("title") != -1)
+            {  
+                this.show_title= true;
+            }
+            else
+            {
+                this.show_title= false; 
+            }
+
+            if(thissetting.indexOf("body") != -1)
+            {  
+                this.show_body= true;
+            }
+            else
+            {
+                this.show_body= false; 
+            }
+
+            if(thissetting.indexOf("image") != -1)
+            {  
+                this.show_image= true;
+            }
+            else
+            {
+                this.show_image= false; 
+            }
         }
     },
     watch: {
